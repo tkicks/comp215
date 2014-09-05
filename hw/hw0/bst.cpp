@@ -135,7 +135,7 @@ void binarySearchTree::insert_help(int key, treeNode *leaf)
 	}
 	else if (key == leaf->value)
 	{
-		cout << "insert_help() Value already entered. Not sure whethere to put left or right. Value not duplicated (last entry not stored.)\n";
+		cout << "Value already entered. Value not duplicated (last entry not stored.)\n";
 	}
 	else
 	{
