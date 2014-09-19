@@ -1,0 +1,51 @@
+5. Nothing got printed to the screen.
+
+6. inside monkey(bool) CTOR
+	inside ape(bool) CTOR
+
+7. ape is eating a banana
+
+8. inside monkey() CTOR
+	inside ape() CTOR
+	inside parrot() CTOR
+	inside human CTOR
+
+9. monkey destructor called
+
+10. human is scratching its head
+
+11. human is scratching its head
+
+12. human is eating a banana
+
+13. human is eating a banana
+
+14. it needs to be dynamically cast in order to have ape be derived from human
+	nothing new is printed to the screen
+
+15. human destructor called
+	parrot destructor called
+	ape destructor called
+	monkey destructor called
+	inside monkey(bool) CTOR
+	inside ape(bool) CTOR
+	inside parrot(char*) CTOR
+	inside human(bool, char*) CTOR
+
+16. parrot is talking
+
+17. list of destructors called printed to screen (saving space not typing out)
+	inside monkey(bool)\n ape(bool)\n parrot()\n human(bool) CTORs
+
+18. created a human element that uses function from monkey swing from tree output:
+	monkey is swinging from tree
+	second output:
+	ape destructor called
+
+	monkey destructor called.
+
+	inside monkey() CTOR
+
+	inside ape() CTOR
+
+	monkey is swinging from tree
