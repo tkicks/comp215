@@ -9,7 +9,7 @@
 using namespace std;
 
 void generateFile();
-int readFile(int nbLines);
+int* readFile(int nbLines);
 
 class integerPairs
 {
@@ -94,26 +94,29 @@ bool integerPairs::operator<=(integerPairs&)
 		return false;
 }
 
-int readFile(int nbLines)
+int* readFile(int nbLines)
 {
-	int* intArray = new int[2*nbLines];
+	integerPairs *intArray = new integerPairs[nbLines];
 	int counter = 0;
-	string line;
+	int firstNumber, secondNumber;
 
-	ifstream myfile("InputNumbers.dat");
-	while (getline(myfile, line))
+	ifstream *myfile("InputNumbers.dat");
+	while (counter < 2000)
 	{
-		istringstream firstString(line[0]);
-		istringstream secondString(line[2]);
-		int firstNumber, secondNumber;
+		// stringstream stringNumber;
+		// stringNumber >> firstNumber;
+		// cout << stringNumber << endl;
+		// stringNumber.clear();
+		// stringNumber >> secondNumber;
+		// stringNumber.clear();
 
-		firstString >> firstNumber;
-		secondString >> secondNumber;
-
+		fscanf(myfile, "%d %d\n", &firstNumber, &secondNumber);
 		intArray[counter] = firstNumber;
 		counter++;
 		intArray[counter] = secondNumber;
 		counter++;
+
+		
 	}
 
 	cout << intArray[0] << " " << intArray[1] << " " << intArray[3] << " " << intArray[4] << " " << intArray[5] << " " << intArray[6] << endl;
@@ -127,8 +130,8 @@ int main()
 	// int nbLines = 100000000;
 	// int intArray = [];
 	generateFile();
-	int array;
-	array = readFile(1000);
+	int *array;
+	array* = readFile(1000);
 	// intArray = readFile(nbLines);
 	// cout << intArray[2];
 }
