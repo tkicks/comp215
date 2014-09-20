@@ -5,17 +5,18 @@
 #include <stdlib.h>
 #include <sstream>
 #include <string>
+#include <time.h>
 
 using namespace std;
 
 void generateFile();
-int* readFile(int nbLines);
+
 
 class integerPairs
 {
-	private:
-		int value1, value2;
 	public:
+		int value1, value2;
+		integerPairs(){};
 		integerPairs(int a, int b);
 		bool operator==(integerPairs&);
 		bool operator>(integerPairs&);
@@ -24,6 +25,12 @@ class integerPairs
 		bool operator<=(integerPairs&);
 };
 
+
+integerPairs* readFile(int nbLines);
+void ourSort(integerPairs* array, int n);
+integerPairs findMax(integerPairs* array, int n, int& x);
+void ourSortTiming(int size);
+
 void generateFile()
 {
 	// commented out to avoid collecting 200,000,000 every time
@@ -31,7 +38,7 @@ void generateFile()
 	srand(time(NULL));
 	myfile.open("InputNumbers.dat");
 	int firstRand, secondRand;
-	for (int i = 0; i < 1000; i++) {
+	for (int i = 0; i < 10; i++) {
 		firstRand = rand()%100;
 		secondRand = rand()%100;
 		myfile << firstRand << " " << secondRand << "\n";
@@ -94,44 +101,88 @@ bool integerPairs::operator<=(integerPairs&)
 		return false;
 }
 
-int* readFile(int nbLines)
+integerPairs* readFile(int nbLines)
 {
 	integerPairs *intArray = new integerPairs[nbLines];
 	int counter = 0;
 	int firstNumber, secondNumber;
+	string line;
+	stringstream stringNumber;
 
-	ifstream *myfile("InputNumbers.dat");
-	while (counter < 2000)
+	ifstream myfile("InputNumbers.dat");
+	while (getline(myfile, line))
 	{
-		// stringstream stringNumber;
-		// stringNumber >> firstNumber;
-		// cout << stringNumber << endl;
-		// stringNumber.clear();
-		// stringNumber >> secondNumber;
-		// stringNumber.clear();
-
-		fscanf(myfile, "%d %d\n", &firstNumber, &secondNumber);
-		intArray[counter] = firstNumber;
+		istringstream iss(line);
+		int a, b;
+		iss >> a >> b;
+		intArray[counter].value1 = a;
+		intArray[counter].value2 = b;
 		counter++;
-		intArray[counter] = secondNumber;
-		counter++;
-
-		
 	}
+	cout << intArray[3].value1 << endl;
+	return intArray;
+}
 
-	cout << intArray[0] << " " << intArray[1] << " " << intArray[3] << " " << intArray[4] << " " << intArray[5] << " " << intArray[6] << endl;
+integerPairs findMax(integerPairs* array, int n, int& x)
+{
+	integerPairs highest;
+	integerPairs current;
+	int startingNum = n;
+	current = array[n];
+	while (n > 0)
+	{
+		if(current > highest)
+		{
+			highest = current;
+			x = n;
+		}
+		n--;
+		current = array[n];
+	}
+	return highest;
+}
 
-	return *intArray;
+void ourSort(integerPairs* array, int n)
+{
+	integerPairs i;	// i is the highest element
+	int x;
+	integerPairs temp;
+	while (n > 0)
+	{
+		i = findMax(array, n, x);
+		temp = i;
+		i = array[n-1];
+		array[n-1] = temp;
+		n--;
+	}
+}
+
+void ourSortTiming(int size)
+{
+	clock_t start, end;
+	int totalTime;
+	integerPairs* array;
+
+	array = readFile(size);
+	start = clock();
+	ourSort(array, size);
+	end = clock();
+
+	totalTime = end - start;
+	cout << "Total time: " << totalTime << endl;
 }
 
 
 int main()
 {
-	// int nbLines = 100000000;
+	// int nbLines = 10;
 	// int intArray = [];
+	int nbLines = 40;
 	generateFile();
-	int *array;
-	array* = readFile(1000);
-	// intArray = readFile(nbLines);
+	// integerPairs* myArray = readFile(nbLines);
+	// int max = findMax(myArray, nbLines);
+	// cout << max << endl;
+	// ourSort(myArray, nbLines);
 	// cout << intArray[2];
+	ourSortTiming(nbLines);
 }
