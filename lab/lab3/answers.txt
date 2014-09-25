@@ -1,0 +1,5 @@
+Tyler Kickham
+
+9. When the size doubles it takes 4x as long. It increases by one more tick than the time before after that. I'm not sure about the math and I don't have enough time to do it and hand this in on time but it increases a little bit.
+
+12. It has the same increasing effect as in question 9.
