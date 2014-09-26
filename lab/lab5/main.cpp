@@ -1,3 +1,12 @@
+// Tyler Kickham
+//
+// NOTE: The swapLines will work, just without the strings concatenated
+//		 and the second line is a bit messed up. If it's couted it will
+//		 display the correct numbers for the values, but when writing
+//		 it's a bit messed up.
+//		 The correct numbers are: 715727 476424 284794
+
+
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
@@ -7,12 +16,11 @@
 using namespace std;
 
 void reverseFile();
-void swapLines();
+void swapLines(int evens, int div3, int div5, int nbLines);
 
 int main()
 {
 	reverseFile();
-	swapLines();
 }
 
 void reverseFile()
@@ -27,6 +35,9 @@ void reverseFile()
 	// ==============================
 	
 	int firstNum, secondNum, thirdNum;
+	int evens = 0;
+	int div3 = 0;
+	int div5 = 0;
 	string word1, word2, word3, word4, word5, word6, word7;
 
 	getline(myFile, line);
@@ -49,6 +60,43 @@ void reverseFile()
 		counter++;
 		intArray[counter] = thirdNum;
 		counter++;
+
+		if(firstNum%2 == 0)
+		{
+			evens++;
+		}
+		if(firstNum%3 == 0)
+		{
+			div3++;
+		}
+		if(firstNum%5 == 0)
+		{
+			div5++;
+		}
+		if(secondNum%2 == 0)
+		{
+			evens++;
+		}
+		if(secondNum%3 == 0)
+		{
+			div3++;
+		}
+		if(secondNum%5 == 0)
+		{
+			div5++;
+		}
+		if(thirdNum%2 == 0)
+		{
+			evens++;
+		}
+		if(thirdNum%3 == 0)
+		{
+			div3++;
+		}
+		if(thirdNum%5 == 0)
+		{
+			div5++;
+		}
 	}
 
 	int j = counter-1;
@@ -60,15 +108,24 @@ void reverseFile()
 		myOutFile << firstNum << "," << secondNum << "," << thirdNum << "\n";
 		j -= 3;
 	}
+
+	swapLines(evens, div3, div5, nbLines);
 }
 
 
-void swapLines()
+void swapLines(int evens, int div3, int div5, int nbLines)
 {
+	cout << "evens: " << evens << " div3: " << div3 << " div5: " << div5 << endl;
+
 	int counter = 0;
-	int firstNum, secondNum, thirdNum, fourthNum, fifthNum, sixthNum, nbLines;
-	string line, word1, word2, word3, word4, word5, word6;
-	stringstream stringNumber;
+	int insertHere = nbLines - 2;
+	int firstNum, num1, num2, num3;
+	string *intArray = new string[3*nbLines];
+	string line, word1, word2, token;
+	string delim = ",";
+	size_t position = 0;
+
+
 	ifstream myFile("reverse.dat");
 	ofstream myOutFile;
 	myOutFile.open("swap.dat");
@@ -79,32 +136,23 @@ void swapLines()
 	nbLines = firstNum;
 	myOutFile << "There are also " << firstNum << " lines in this file.\n";
 
-	int *intArray = new int[3*nbLines];
-
-	while(getline(myFile, line, ','))
+	while(getline(myFile, line))
 	{
-		cout << counter/3 << endl;
-		istringstream iss(line);
-		iss >> firstNum >> word1 >> secondNum >> word2 >> thirdNum;
-		intArray[counter] = firstNum;
-		counter++;
-		intArray[counter] = secondNum;
-		counter++;
-		intArray[counter] = thirdNum;
-		counter++;
-	}
+		
+		istringstream firstWord(line);
+		firstWord >> word1;
+		getline(myFile, line);
+		istringstream secondWord(line);
+		secondWord >> word2;
+		swap(word1, word2);
 
-	int j = 0;
-	while (j < counter-1)
-	{
-		sixthNum = intArray[j];
-		fifthNum = intArray[j+1];
-		fourthNum = intArray[j+2];
-		thirdNum = intArray[j+3];
-		secondNum = intArray[j+4];
-		firstNum = intArray[j+5];
-		myOutFile << "First integer: " << sixthNum << "Second integer: " << fifthNum << "Third integer: " << fourthNum << "\n" << "First integer: " << thirdNum << "Second integer: " << secondNum << "Third integer: " << firstNum << "\n";
-		// myOutFile << "First integer: " << thirdNum << "Second integer: " << secondNum << "Third integer: " << firstNum << "\n";
-		j -= 6;
+		if (nbLines%2!=0 and counter == insertHere)
+		{
+			myOutFile << evens << " " << div3 << " " << div5 << endl << endl;
+		}
+		else
+			myOutFile << word1 << endl << word2 << endl;
+
+		counter += 2;
 	}
 }
