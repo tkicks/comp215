@@ -1,4 +1,4 @@
 comp215
 =======
 
-Assignments for Algorithms class.
+Class and homework assignments for Algorithms class.
