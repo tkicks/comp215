@@ -9,17 +9,18 @@ class mygraph {
 	public:
 		int nbVertices;
 		int** adjMatrix;
+		int** mark;
 
 		mygraph();
 		mygraph(int nbLines);
 		~mygraph();
-		mygraph DFS(mygraph& G);
-		// BFS();
+		void DFS(mygraph& G);
+		void BFS(mygraph& G);
 
 	private:
 		int count;
 		void dfs(int vertex);
-		// bfs();
+		void bfs(int vertex);
 };
 
 
@@ -29,7 +30,7 @@ int main()
 {
 	string response, line;
 	// a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t,
-	int nbLines;
+	int a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p, q, r, s, t, row, column, nbLines;
 	cout << "Enter a file name: ";
 	cin >> response;
 
@@ -43,13 +44,21 @@ int main()
 	iss >> nbLines;
 
 	mygraph G(nbLines);
-	G = G.DFS(G);
+	
 
-	// while (getline(myFile, line))
-	// {
-	// 	istringstream iss(line);
-	// 	iss >> a >> b >> c >> d >> e >> f >> g >> h >> i >> j >> k >> l >> m >> n >> o >> p >> q >> r >> s >> t;
-	// }
+	row = 0;	// which row it is
+	while (getline(myFile, line))
+	{
+		column = 0;	// which column it is
+		istringstream iss(line);
+		iss >> G.adjMatrix[row][column] >> G.adjMatrix[row][column+1] >> G.adjMatrix[row][column+2] >> G.adjMatrix[row][column+3] >> G.adjMatrix[row][column+4] >> G.adjMatrix[row][column+5] >> G.adjMatrix[row][column+6] >> G.adjMatrix[row][column+7] >> G.adjMatrix[row][column+8] >> G.adjMatrix[row][column+9] >> G.adjMatrix[row][column+10] >> G.adjMatrix[row][column+11] >> G.adjMatrix[row][column+12] >> G.adjMatrix[row][column+13] >> G.adjMatrix[row][column+14] >> G.adjMatrix[row][column+15] >> G.adjMatrix[row][column+16] >> G.adjMatrix[row][column+17] >> G.adjMatrix[row][column+18] >> G.adjMatrix[row][column+19];
+
+		// cout << G.adjMatrix[row][column] << G.adjMatrix[row][column+1] << G.adjMatrix[row][column+2] << G.adjMatrix[row][column+3] << G.adjMatrix[row][column+4] << G.adjMatrix[row][column+5] << G.adjMatrix[row][column+6] << G.adjMatrix[row][column+7] << G.adjMatrix[row][column+8] << G.adjMatrix[row][column+9] << G.adjMatrix[row][column+10] << G.adjMatrix[row][column+11] << G.adjMatrix[row][column+12] << G.adjMatrix[row][column+13] << G.adjMatrix[row][column+14] << G.adjMatrix[row][column+15] << G.adjMatrix[row][column+16] << G.adjMatrix[row][column+17] << G.adjMatrix[row][column+18] << G.adjMatrix[row][column+19] << endl;
+
+		row++;
+	} 
+
+	G.DFS(G);
 }
 
 
@@ -64,9 +73,11 @@ mygraph::mygraph(int nbLines)
 {
 	nbVertices = nbLines;
 	adjMatrix = new int* [nbVertices];
+	mark = new int* [nbVertices];
 	for (int i = 0; i < nbVertices; i++)
 	{
 		adjMatrix[i] = new int [nbVertices];
+		mark[i] = new int [nbVertices];
 	}
 }
 
@@ -75,31 +86,63 @@ mygraph::~mygraph()
 	for (int i = 0; i < nbVertices; i++)
 	{
 		delete[] adjMatrix[i];
+		delete[] mark[i];
 	}
 	delete[] adjMatrix;
+	delete[] mark;
 }
 
-mygraph mygraph::DFS(mygraph& G)
+void mygraph::DFS(mygraph& G)
 {
-	cout << "In DFS\n";
 	count = 0;
+	for (int i = 0; i < nbVertices; i++)
+	{
+		for (int j = i+1; j < nbVertices; j++)
+		{
+			mark[i][j] = 0;
+		}
+	}
 	for (int vertex = 0; vertex < nbVertices; vertex++)
 	{
-		if (vertex == 0)
+		if (mark[vertex][vertex] == 0)
 		{
 			dfs(vertex);
 		}
 	}
+	cout << count << endl;
 }
 
 void mygraph::dfs(int vertex)
 {
-	cout << "In dfs\n";
 	count += 1;
-	vertex = count;
+	*mark[vertex] = count;
 	for (int w = 0; w < nbVertices; w++)
 	{
-		if (w == 0)
+		if (mark[w] == 0)
+		{
+			dfs(w);
+		}
+	}
+}
+
+void mygraph::BFS(mygraph& G)
+{
+	count = 0;
+	for (int vertex = 0; vertex < nbVertices; vertex++)
+	{
+		if (mark[vertex] == 0)
+		{
+			bfs(vertex);
+		}
+	}
+}
+
+void mygraph::bfs(int vertex)
+{
+	count += 1;
+	for (int w = 0; w < nbVertices; w++)
+	{
+		if (mark[w] == 0)
 		{
 			dfs(w);
 		}
