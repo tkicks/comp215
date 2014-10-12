@@ -1,7 +1,20 @@
+/*
+	NOTE: Lines 74 and 75 are commented out.  Uncomment one at a time.  I don't think
+	I got the functions to work correctly, but I got them to go through each
+	vertex, so I threw in some cout statements to show where it's reaching.
+	Uncommenting both at once will produce too much output for a single run.
+	It's sort of just to show the work I've done.
+*/
+
+
+
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <string.h>
+#include <queue>
+#include <deque>
 
 using namespace std;
 
@@ -58,7 +71,8 @@ int main()
 		row++;
 	} 
 
-	G.DFS(G);
+	// G.DFS(G);
+	// G.BFS(G);
 }
 
 
@@ -110,6 +124,7 @@ void mygraph::DFS(mygraph& G)
 		}
 	}
 	cout << count << endl;
+	cout << "It pops them in FIFO order\n";
 }
 
 void mygraph::dfs(int vertex)
@@ -118,11 +133,13 @@ void mygraph::dfs(int vertex)
 	*mark[vertex] = count;
 	for (int w = 0; w < nbVertices; w++)
 	{
+		cout << "X Coordinate (" << w << ")" << endl;
 		if (mark[w] == 0)
 		{
 			dfs(w);
 		}
 	}
+	cout << "\n\n\n";
 }
 
 void mygraph::BFS(mygraph& G)
@@ -130,21 +147,38 @@ void mygraph::BFS(mygraph& G)
 	count = 0;
 	for (int vertex = 0; vertex < nbVertices; vertex++)
 	{
-		if (mark[vertex] == 0)
+		if (mark[vertex][vertex] == 0)
 		{
 			bfs(vertex);
 		}
 	}
+	cout << "It goes through all ys for each x before moving on to the next x\n";
 }
 
 void mygraph::bfs(int vertex)
 {
 	count += 1;
-	for (int w = 0; w < nbVertices; w++)
+	*mark[vertex] = count;
+	deque<int> myQueue(vertex);
+	queue<int> queues(myQueue);
+	while (!queues.empty())
 	{
-		if (mark[w] == 0)
+		for (int w = 0; w < nbVertices; w++)
 		{
-			dfs(w);
+			for (int j = 0; j < nbVertices; j++)
+			{
+				if (mark[w][j] == 0)
+				{
+					count += 1;
+					mark[w][j] = count;
+					queues.push(w);
+					cout << "Coordinate (" << w << ", " << j << ")" << endl;
+				}
+			}
+			
 		}
+
+		
+		queues.pop();
 	}
 }
