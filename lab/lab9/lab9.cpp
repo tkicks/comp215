@@ -21,6 +21,10 @@ class myItem {
 
 void MergeSort(myItem* original, int size);
 void Merge(myItem* Left, myItem* Right, myItem* original, int sizeL, int sizeR);
+int LomutoPartition(myItem* A, int l, int r);
+void LomutoQuickSort(myItem* A, int l, int r);
+void HoareQuickSort(myItem* A, int l, int r);
+int HoarePartition(myItem* A, int l, int r);
 
 int main()
 {
@@ -28,6 +32,7 @@ int main()
 	int a;
 	int counter = 0;
 	int nbLines = 5;
+	int l = 0;
 
 	cout << "Enter a file name: ";
 	cin >> filename;
@@ -48,7 +53,13 @@ int main()
 		counter++;
 	}
 
-	MergeSort(array, nbLines);
+	// cout << "MergeSort\n";
+	// MergeSort(array, nbLines);
+	// cout << "\n\n\nLomutoQuickSort\n";
+	// LomutoQuickSort(array, l, nbLines);
+	cout << "\n\n\nHoareQuickSort\n";
+	HoareQuickSort(array, l, nbLines);
+	cout << "\n\n";
 }
 
 void MergeSort(myItem* original, int size)
@@ -57,23 +68,22 @@ void MergeSort(myItem* original, int size)
 	{
 		// allocate arrays
 		int numFloor = floor((size/2));
-		int numCeiling = ceil((size/2));
+		int numCeiling = size - numFloor;
 		myItem *Left = new myItem[numFloor];
 		myItem *Right = new myItem[numCeiling];
 
 		// copy to left (B) and right (C)
-		for (int i = 0; i < numFloor-1; i++)
+		for (int i = 0; i < numFloor; i++)
 		{
 			Left[i] = original[i];
 		}
-		for (int j = numFloor; j = size-1; j++)
+		for (int j = numFloor, k = 0; j < size; j++, k++)
 		{
-			Right[j] = original[j];
+			Right[k] = original[j];
 		}
 
 		// mergesort Left then Right
 		MergeSort(Left, numFloor);
-		cout << "merged left\n";
 		MergeSort(Right, numCeiling);
 		Merge(Left, Right, original, numFloor, numCeiling);
 	}
@@ -115,10 +125,87 @@ void Merge(myItem* Left, myItem* Right, myItem* original, int sizeL, int sizeR)
 		}
 	}
 
+
 	for (int n = 0; n < (sizeL + sizeR); n++)
 	{
-		cout << original[n].serialNumber << endl;
+		cout << original[n].serialNumber << ", ";
 	}
+	cout << "\n";
+}
+
+void LomutoQuickSort(myItem* A, int l, int r)
+{
+	if (l < r)
+	{
+		int s = LomutoPartition(A, l, r);
+		LomutoQuickSort(A, l, s-1);
+		LomutoQuickSort(A, s+1, r);
+	}
+
+	for (int i = l; i < r; i++)
+	{
+		cout << A[i].serialNumber << ", ";
+	}
+	cout << "\n";
+}
+
+int LomutoPartition(myItem* A, int l, int r)
+{
+	int pivot = A[l].serialNumber;
+	int s = l;
+	for (int i = l+1; i < r; i++)
+	{
+		if (A[i].serialNumber < pivot)
+		{
+			s += 1;
+			swap(A[s], A[i]);
+		}
+	}
+	swap(A[l], A[s]);
+	return s;
+}
+
+void HoareQuickSort(myItem* A, int l, int r)
+{
+	cout << "l: " << l << "\t\tr: " << r << "\n";
+	if (l < r)
+	{
+		int s = HoarePartition(A, l, r);
+		cout << "partitioned\n";
+		HoareQuickSort(A, l, s-1);
+		HoareQuickSort(A, s+1, r);
+	}
+
+	// for (int i = l; i < r; i++)
+	// {
+	// 	cout << A[i].serialNumber << ", ";
+	// }
+	cout << "\n";
+}
+
+int HoarePartition(myItem* A, int l, int r)
+{
+	int pivot = A[l].serialNumber;
+	cout << "pivot: " << pivot << "\n";
+	int i = l;
+	int j = r+1;
+	do {
+		do {
+			i += 1;
+		} while (A[i].serialNumber <= pivot);
+		do {
+			j += 1;
+		} while (A[j].serialNumber >= pivot);
+		cout << "no swaps\n";
+		swap(A[i], A[j]);
+		cout << "one swap\n";
+	} while (i < j);
+	cout << "completed all dos\n";
+	swap(A[i], A[j]);
+	cout << "two swaps\n";
+	swap(A[l], A[j]);
+	cout << "three swaps\n";
+	return j;
 }
 
 myItem::myItem(int sn, string s)
