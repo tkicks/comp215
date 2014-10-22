@@ -189,12 +189,15 @@ int HoarePartition(myItem* A, int l, int r)
 	cout << "pivot: " << pivot << "\n";
 	int i = l;
 	int j = r+1;
+	cout << "j: " << j << endl;
 	do {
 		do {
 			i += 1;
+			cout << "i: " << i << endl;
 		} while (A[i].serialNumber <= pivot);
 		do {
-			j += 1;
+			j -= 1;
+			cout << "j: " << j << endl;
 		} while (A[j].serialNumber >= pivot);
 		cout << "no swaps\n";
 		swap(A[i], A[j]);
