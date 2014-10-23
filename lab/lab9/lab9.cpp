@@ -58,8 +58,14 @@ int main()
 	// cout << "\n\n\nLomutoQuickSort\n";
 	// LomutoQuickSort(array, l, nbLines);
 	cout << "\n\n\nHoareQuickSort\n";
+	cout << "array[5]: " << array[5].serialNumber << endl;
 	HoareQuickSort(array, l, nbLines);
 	cout << "\n\n";
+	for (int i = 0; i < nbLines; i++)
+	{
+		cout << array[i].serialNumber << ", ";
+	}
+	cout << endl;
 }
 
 void MergeSort(myItem* original, int size)
@@ -167,11 +173,15 @@ int LomutoPartition(myItem* A, int l, int r)
 
 void HoareQuickSort(myItem* A, int l, int r)
 {
-	cout << "l: " << l << "\t\tr: " << r << "\n";
+	// cout << "l: " << l << "\t\tr: " << r << "\n";
 	if (l < r)
 	{
+		// for (int i = l; i < r; i++)
+		// {
+		// 	cout << A[i].serialNumber << ", ";
+		// }
 		int s = HoarePartition(A, l, r);
-		cout << "partitioned\n";
+		// cout << "partitioned\n";
 		HoareQuickSort(A, l, s-1);
 		HoareQuickSort(A, s+1, r);
 	}
@@ -186,28 +196,28 @@ void HoareQuickSort(myItem* A, int l, int r)
 int HoarePartition(myItem* A, int l, int r)
 {
 	int pivot = A[l].serialNumber;
-	cout << "pivot: " << pivot << "\n";
+	// cout << "\npivot: " << pivot << "\n";
 	int i = l;
 	int j = r+1;
-	cout << "j: " << j << endl;
+	// cout << "j: " << j << endl;
 	do {
 		do {
 			i += 1;
-			cout << "i: " << i << endl;
-		} while (A[i].serialNumber <= pivot);
+			// cout << "i: " << i << endl;
+		} while (A[i].serialNumber <= pivot && i < r);
 		do {
 			j -= 1;
-			cout << "j: " << j << endl;
-		} while (A[j].serialNumber >= pivot);
-		cout << "no swaps\n";
+			// cout << "j: " << j << endl;
+		} while (A[j].serialNumber > pivot);
+		// cout << "no swaps\n";
 		swap(A[i], A[j]);
-		cout << "one swap\n";
+		// cout << "one swap\n";
 	} while (i < j);
-	cout << "completed all dos\n";
+	// cout << "completed all dos\n";
 	swap(A[i], A[j]);
-	cout << "two swaps\n";
+	// cout << "two swaps\n";
 	swap(A[l], A[j]);
-	cout << "three swaps\n";
+	// cout << "three swaps\n";
 	return j;
 }
 
