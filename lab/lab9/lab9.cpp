@@ -204,11 +204,11 @@ int HoarePartition(myItem* A, int l, int r)
 		do {
 			i += 1;
 			// cout << "i: " << i << endl;
-		} while (A[i].serialNumber <= pivot && i < r);
+		} while (A[i] < pivot);
 		do {
 			j -= 1;
 			// cout << "j: " << j << endl;
-		} while (A[j].serialNumber > pivot);
+		} while (A[j] > pivot);
 		// cout << "no swaps\n";
 		swap(A[i], A[j]);
 		// cout << "one swap\n";
