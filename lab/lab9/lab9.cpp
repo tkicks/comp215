@@ -195,7 +195,15 @@ void HoareQuickSort(myItem* A, int l, int r)
 
 int HoarePartition(myItem* A, int l, int r)
 {
-	int pivot = A[l].serialNumber;
+	if (A[l] < A[r]) 
+        {
+            myItem pivot = A[l] ;
+        } 
+        else
+        {
+            swap(A[l],  A[r]) ;
+            pivot = A[l] ;
+        } 
 	// cout << "\npivot: " << pivot << "\n";
 	int i = l;
 	int j = r+1;
