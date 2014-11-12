@@ -6,8 +6,8 @@ class binarySearchTree: public searchTree {
 		binarySearchTree();
 		virtual void insert(dictEntry *in);
 		virtual void insert_h(dictEntry *in, searchTreeNode *root);
-		virtual treeNode search(string w);
-		virtual treeNode search_h(string w, searchTreeNode *root);
+		virtual searchTreeNode* search(string w);
+		virtual searchTreeNode* search_h(string w, searchTreeNode *root);
 	protected:
 		searchTreeNode *root;
 };
