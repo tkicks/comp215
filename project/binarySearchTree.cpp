@@ -39,7 +39,7 @@ void binarySearchTree::insert_h(dictEntry *in, searchTreeNode *root)
 	}
 }
 
-searchTreeNode binarySearchTree::search(string w)
+treeNode binarySearchTree::search(string w)
 // search for string w in tree and remove
 // dictEntry with word == w
 {
@@ -47,14 +47,18 @@ searchTreeNode binarySearchTree::search(string w)
 	return search_h(w, root);
 }
 
-searchTreeNode search_h(string w, searchTreeNode *root)
+treeNode search_h(string w, searchTreeNode *root)
 // searches for string w in tree and removes
 // dictEntry with word == w
 // does the work for search()
 {
-	if (w == root->data)	// root->word???
-		return;
-	else if (w < root->data)
-		return new searchTreeNode(w, root);;
-}
+	if (root == NULL)
+		return NULL;
+	else if (root->data == w)
+		return root;
+	else if (root->data < w)
+		return search_h(w, root->left);
+	else
+		return search_h(w, root->right);
+}	
 
