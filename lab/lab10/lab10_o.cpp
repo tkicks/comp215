@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <random>
 
 using namespace std;
 
@@ -21,52 +22,58 @@ long untilItsFull(long *table);
 void initTable(long *table);
 
 int numberOfItems = 90000;
+default_random_engine generator;
+uniform_int_distribution<int> distribution(0,180000);
 
 int main()
 {
 	int collisionCount2 = 0;
 	int collisionCount5 = 0;
 	int totalCollisions = 0;
-	long key, hashedKey, emptySpaces, highestNumberCollisions, numToFull;
+	long key, hashedKey, emptySpaces, highestNumberCollisions, numToFull, highestNumberCollisionsFull;
 	long *table = new long[numberOfItems];
 	initTable(table);
 
-	// for (int i = 0; i < numberOfItems; i++)
-	// {
-	// 	key = generateRandomKey();
-	// 	hashedKey = hashFunction(key);
-	// 	table[hashedKey] += 1;
+	for (int i = 0; i < numberOfItems; i++)
+	{
+		key = generateRandomKey();
+		hashedKey = hashFunction(key);
+		table[hashedKey] += 1;
 
-	// 	if (table[hashedKey] == 2)
-	// 	{
-	// 		collisionCount2++;
-	// 		cout << collisionCount2 << "th 2-way collision at " << i << "th key generated\n";
-	// 		// break;
-	// 	}
-	// 	if (table[hashedKey] == 5)
-	// 	{
-	// 		collisionCount5++;
-	// 		cout << collisionCount5 << "th 5-way collision at " << i << "th key generated\n";
-	// 		// break;
-	// 	}
-	// 	if (table[hashedKey] > 1)
-	// 	{
-	// 		totalCollisions++;
-	// 	}
-	// }
+		if (table[hashedKey] == 2)
+		{
+			collisionCount2++;
+			cout << collisionCount2 << "th 2-way collision at " << i << "th key generated\n";
+			// break;
+		}
+		if (table[hashedKey] == 5)
+		{
+			collisionCount5++;
+			cout << collisionCount5 << "th 5-way collision at " << i << "th key generated\n";
+			// break;
+		}
+		if (table[hashedKey] > 1)
+		{
+			totalCollisions++;
+		}
+	}
 
-	// emptySpaces = countEmpties(table);
-	// highestNumberCollisions = countHighest(table);
+	emptySpaces = countEmpties(table);
+	highestNumberCollisions = countHighest(table);
 	numToFull = untilItsFull(table);
-	// cout << "There were " << totalCollisions << " total collisions\n";
-	// cout << "There were " << emptySpaces << " empty spaces in the table\n";
-	// cout << "There were " << highestNumberCollisions << " collisions in the most filled space\n";
+	highestNumberCollisionsFull = countHighest(table);
+	cout << "There were " << totalCollisions << " total collisions\n";
+	cout << "There were " << emptySpaces << " empty spaces in the table\n";
+	cout << "There were " << highestNumberCollisions << " collisions in the most filled space\n";
 	cout << "It took " << numToFull << " keys to fill the entire array\n";
+	cout << "There were " << highestNumberCollisionsFull << " collisions in the most filled space when array is full\n";
 }
 
 long generateRandomKey()
 {
-	return (rand()%numberOfItems);
+	// int randomNum = distribution(generator);
+	// cout << randomNum << endl;
+	return distribution(generator);
 }
 
 long hashFunction(long key)
@@ -143,8 +150,8 @@ long untilItsFull(long* table)
 		}
 		if (empties == 0)
 			return numberKeys;
-		else
-			cout << "not full, " << numberKeys << " keys so far, " << empties << " empties\n";
+		// else
+		// 	cout << "not full, " << numberKeys << " keys so far, " << empties << " empties\n";
 	}
 }
 

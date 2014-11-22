@@ -1,15 +1,18 @@
 /*
 	Tyler Kickham
 	Questions
-	a. I have to generate 147 keys to get my first collision.
-	b. I have to generate 20640 keys to get my first 5-way collision.
-	c. I had 46539 total collisions.
-	d. I had 46539 empty spaces in the table.
-	e. I had 9 collisions in the most filled space.
+	a. I have to generate 175 keys to get my first collision.
+	b. I have to generate 23305 keys to get my first 5-way collision.
+	c. I had 33155 total collisions.
+	d. I had 33155 empty spaces in the table.
+	e. I had 7 collisions in the most filled space.
+	f. It took 1012410 keys to fill the entire array.
+	g. There were 26 collisions in the most filled space when array is full
 */
 #include <iostream>
 #include <string>
 #include <stdlib.h>
+#include <random>
 
 using namespace std;
 
@@ -22,23 +25,26 @@ void fillTable(long *table, int n);
 void initTable(long *table);
 
 int numberOfItems = 90000;
+default_random_engine generator;
+uniform_int_distribution<long> distribution(0,180000);
 
 int main()
 {
-	long emptySpaces, highestNumberCollisions, numToFull;
+	long emptySpaces, highestNumberCollisions, numToFull, highestNumberCollisionsFull;
 	long *table = new long[numberOfItems];
 	initTable(table);
 
-	// 2-way collisions
+	// 2-way collisions change n to desired number of collisions to check
 	int n = 2;
 	fillTable(table, n);
 
-	// 5-way collisions
+	// 5-way collisions change n to desired number of collisions to check
 	initTable(table);
 	n = 5;
 	fillTable(table, n);
 
 	// total collisions
+	// ================== DON'T CHANGE n ==================
 	initTable(table);
 	n = -1;
 	fillTable(table, n);
@@ -49,14 +55,17 @@ int main()
 	initTable(table);
 	numToFull = untilItsFull(table);
 
+	highestNumberCollisionsFull = countHighest(table);
+
 	cout << "There were " << emptySpaces << " empty spaces in the table\n";
 	cout << "There were " << highestNumberCollisions << " collisions in the most filled space\n";
 	cout << "It took " << numToFull << " keys to fill the entire array\n";
+	cout << "There were " << highestNumberCollisionsFull << " collisions in the most filled space when array is full\n";
 }
 
 long generateRandomKey()
 {
-	return (rand()%numberOfItems);
+	return distribution(generator);
 }
 
 long hashFunction(long key)
@@ -86,89 +95,27 @@ long countHighest(long* table)
 	return highest;
 }
 
-// long untilItsFull(long* table)
-// {
-// 	bool full = false;
-// 	long key, hashedKey;
-// 	long numberKeys = 0;
-// 	while (full == false)
-// 	{
-// 		full = true;
-// 		key = generateRandomKey();
-// 		hashedKey = hashFunction(key);
-// 		table[hashedKey] += 1;
-// 		numberKeys++;
-// 		for (int i = 0; i < numberOfItems; i++)
-// 		{
-// 			if (table[i] == 0)
-// 			{
-// 				full = false;
-// 			}
-// 		}
-// 		if (full == true)
-// 			return numberKeys;
-// 		else
-// 			cout << "not full and " << numberKeys << " keys so far\n";
-// 	}
-// }
-
 long untilItsFull(long* table)
 {
 	bool full = false;
-	long key, hashedKey, empties;
-	long highestKey = 0;
-	long lowestKey = 90000;
+	long key, hashedKey;
 	long numberKeys = 0;
-	while (!full)
+	while (full == false)
 	{
+		full = true;
 		key = generateRandomKey();
 		hashedKey = hashFunction(key);
-
-		if (lowestKey == 0)
-		{
-			cout << empties << endl;
-			for (int j = 0; j < numberOfItems; j++)
-			{
-				if (table[j] == 0)
-				{
-					cout << "first empty: " << j << endl;
-					break;
-				}
-			}
-			break;
-		}
-
-		if (empties <= 34948)
-		{
-			// 34948 gets it down to 10,732 empties
-			hashedKey += 3;
-			if (hashedKey > highestKey)
-				highestKey = hashedKey;
-			if (hashedKey < lowestKey)
-				lowestKey = hashedKey;
-			// cout << highestKey << endl;
-			cout << lowestKey << endl;
-		}
-
-		if (hashedKey < lowestKey)
-			lowestKey = hashedKey;
-			// cout << highestKey << endl;
-		cout << lowestKey << endl;
-
 		table[hashedKey] += 1;
 		numberKeys++;
-		empties = 0;
 		for (int i = 0; i < numberOfItems; i++)
 		{
 			if (table[i] == 0)
 			{
-				empties++;
+				full = false;
 			}
 		}
-		if (empties == 0)
+		if (full == true)
 			return numberKeys;
-		// else
-			// cout << "not full, " << numberKeys << " keys so far, " << empties << " empties\n";
 	}
 }
 
@@ -177,6 +124,7 @@ void initTable(long* table)
 	for (int i = 0; i < numberOfItems; i++)
 		table[i] = 0;
 }
+
 void fillTable(long* table, int n)
 {	
 	int collisionCount = 0;
