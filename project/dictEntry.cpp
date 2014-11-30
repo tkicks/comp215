@@ -77,3 +77,8 @@ bool dictEntry::operator<=(string str)
 	else
 		return false;
 }
+
+
+int main() {
+	// prevent errors compiling
+}
