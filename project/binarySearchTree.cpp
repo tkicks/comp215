@@ -1,3 +1,7 @@
+/*
+TODO: successor in remove()
+*/
+
 #include "binarySearchTree.h"
 #include <queue>
 using namespace std;

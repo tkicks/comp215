@@ -5,6 +5,8 @@
 #include "searchTree.h"
 #include "searchTreeNode.cpp"
 #include "binarySearchTree.cpp"
+#include "RBsearchTreeNode.cpp"
+#include "dictionary.cpp"
 
 using namespace std;
 
