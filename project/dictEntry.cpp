@@ -15,6 +15,12 @@ dictEntry::dictEntry(string w, string d)
 	definition = d;
 }
 
+string dictEntry::getWord()
+// get the word value of the word the function is called on
+{
+	return this->word;
+}
+
 string dictEntry::getDefinition()
 // get the definition of the word the function is called on
 {

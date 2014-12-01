@@ -1,10 +1,3 @@
-/*
-
-TODO: #16
-
-*/
-
-
 #include "binarySearchTree.h"
 #include <queue>
 using namespace std;
@@ -129,6 +122,9 @@ void binarySearchTree::preorder(string filename)
 // protected b/c don't want people messing w/ order
 // 		or else new tree will be messed up
 {
+	char* c_file;
+	strcpy(c_file, filename.c_str());
+	fout.open(c_file, ofstream::out);
 	preorder_h(root);
 }
 
@@ -148,6 +144,9 @@ void binarySearchTree::preorder_h(searchTreeNode *n)
 void binarySearchTree::postorder(string filename)
 // calls protected helper function to visit nodes
 {
+	char* c_file;
+	strcpy(c_file, filename.c_str());
+	fout.open(c_file, ofstream::out);
 	postorder_h(root);
 }
 
@@ -167,6 +166,9 @@ void binarySearchTree::postorder_h(searchTreeNode *n)
 void binarySearchTree::inorder(string filename)
 // calls protected helper function to visit nodes
 {
+	char* c_file;
+	strcpy(c_file, filename.c_str());
+	fout.open(c_file, ofstream::out);
 	inorder_h(root);
 }
 
@@ -177,7 +179,7 @@ void binarySearchTree::inorder_h(searchTreeNode *n)
 // good for writing to file
 {
 	searchTreeNode *current;
-	queue<searchTreeNode> Q;
+	queue<searchTreeNode*> Q;
 	Q.push(n);
 	while (!Q.empty())
 	{
@@ -191,8 +193,29 @@ void binarySearchTree::inorder_h(searchTreeNode *n)
 }
 
 void binarySearchTree::visit(searchTreeNode *n)
+// does the work for when each non-NULL node is visited
+// gets the word and definition and writes it to the file
+// file fout is part of class and declared in function calling
+//		visit
 {
 	string word, definition;
 	word = getWord(n);
 	definition = getDefinition(n);
+	fout << "[" << word << "]: [" << definition << "]\n";
+}
+
+string binarySearchTree::getWord(searchTreeNode *n)
+// does the work for getting the word from visit
+// function getDefinition is a part of dictEntry class
+// pointer to data allows call of protected function
+{
+	return n->data->getWord();
+}
+
+string binarySearchTree::getDefinition(searchTreeNode *n)
+// does the work for getting the definition from visit
+// function getDefinition is a part of dictEntry class
+// pointer to data allows call of protected function
+{
+	return n->data->getDefinition();
 }

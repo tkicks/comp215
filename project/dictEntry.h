@@ -6,6 +6,7 @@ using namespace std;
 class dictEntry {
 	public:
 		dictEntry(string w, string d);
+		string getWord();
 		string getDefinition();
 		void updateDefinition(string def);
 		bool operator==(string str);

@@ -1,4 +1,5 @@
-#include <string>
+#include <string.h>
+#include <fstream>
 using namespace std;
 
 class binarySearchTree: public searchTree {
@@ -16,8 +17,11 @@ class binarySearchTree: public searchTree {
 
 	protected:
 		searchTreeNode *root;
+		ofstream fout;
 		virtual void preorder_h(searchTreeNode *n);
 		virtual void postorder_h(searchTreeNode *n);
 		virtual void inorder_h(searchTreeNode *n);
 		virtual void visit(searchTreeNode *n);
+		virtual string getWord(searchTreeNode *n);
+		virtual string getDefinition(searchTreeNode *n);
 };
