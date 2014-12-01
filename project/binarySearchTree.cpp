@@ -1,3 +1,10 @@
+/*
+
+TODO: #16
+
+*/
+
+
 #include "binarySearchTree.h"
 #include <queue>
 using namespace std;
@@ -117,7 +124,7 @@ void binarySearchTree::remove(string w)
 	}
 }
 
-void binarySearchTree::preorder()
+void binarySearchTree::preorder(string filename)
 // calls protected helper function to visit nodes
 // protected b/c don't want people messing w/ order
 // 		or else new tree will be messed up
@@ -133,12 +140,12 @@ void binarySearchTree::preorder_h(searchTreeNode *n)
 	if (n != NULL)
 	{
 		preorder_h(n->left);
-		// do stuff tbd
+		visit(n);
 		preorder_h(n->right);
 	}
 }
 
-void binarySearchTree::postorder()
+void binarySearchTree::postorder(string filename)
 // calls protected helper function to visit nodes
 {
 	postorder_h(root);
@@ -152,12 +159,12 @@ void binarySearchTree::postorder_h(searchTreeNode *n)
 	if (n != NULL)
 	{
 		postorder_h(n->right);
-		// do stuff tbd
+		visit(n);
 		postorder_h(n->left);
 	}
 }
 
-void binarySearchTree::inorder()
+void binarySearchTree::inorder(string filename)
 // calls protected helper function to visit nodes
 {
 	inorder_h(root);
@@ -175,10 +182,17 @@ void binarySearchTree::inorder_h(searchTreeNode *n)
 	while (!Q.empty())
 	{
 		current = Q.front();
-		// do stuff to Q tbd
+		visit(n);
 		if (current->left != NULL)
 			Q.push(current->left);
 		if (current->right != NULL)
 			Q.push(current->right);
 	}
+}
+
+void binarySearchTree::visit(searchTreeNode *n)
+{
+	string word, definition;
+	word = getWord(n);
+	definition = getDefinition(n);
 }
