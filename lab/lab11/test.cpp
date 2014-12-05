@@ -39,43 +39,10 @@ changeStruct::changeStruct()
 		numberEach[i] = 0;
 }
 
-// void ChangeMaking(int n)
-// {
-// 	int j;
-// 	changeStruct counter, F[n+1];
-
-// 	for (int i = 0; i < n+1; i++)
-// 	{
-// 		while (j < 5 && i >= D[j])
-// 		{
-// 			if (F[i-D[j]].minsofar+1 < counter.minsofar)
-// 			{
-// 				counter.minsofar = F[i-D[j]].minsofar+1;
-// 				for (int z = 0; z < m; z++)
-// 				{
-// 					if (z != j)
-// 						counter.numberEach[z] = F[i-D[j]].numberEach[z];
-// 					else
-// 						counter.numberEach[z] = F[i-D[j]].numberEach[z] + 1;
-// 				}
-// 			}
-// 			j++;
-// 		}
-// 		F[i] = counter;
-// 	}
-// 	cout << "minsofar = " << counter.minsofar << endl;
-// 	cout << counter.numberEach[0] << " 1 cent coins\n";
-// 	cout << counter.numberEach[1] << " 7 cent coins\n";
-// 	cout << counter.numberEach[2] << " 30 cent coins\n";
-// 	cout << counter.numberEach[3] << " 84 cent coins\n";
-// 	cout << counter.numberEach[4] << " 235 cent coins\n";
-// }
-
 void ChangeMaking(int n)
 {
-	int j, newminsofar;
-	changeStruct F[n+1];
-	changeStruct counter;
+	int j, lowest;
+	changeStruct counter, F[n+1];
 
 	for (int i = 0; i < n+1; i++)
 	{
@@ -89,21 +56,26 @@ void ChangeMaking(int n)
 				for (int z = 0; z < m; z++)
 				{
 					if (z != j)
-					{
-						counter[z].numberEach = F[i-D[j]].minsofar;
-					}
+						counter.numberEach[z] = F[i-D[j]].numberEach[z];
 					else
-						counter[z].numberEach = F[i-D[j]].minsofar+1;
+					{
+						counter.numberEach[z] = F[i-D[j]].numberEach[z] + 1;
+						F[i-D[j]].numberEach[z] = counter.numberEach[z];
+						lowest = i;
+						// cout << "z = " << z << "\nj = " << j << "\nnumberEach[" << z << "] increased to " << counter.numberEach[z] << "\n";
+					}
 				}
 			}
 			j++;
 		}
 		F[i].minsofar = counter.minsofar;
+		for (int l = 0; l < m; l++)
+			F[i].numberEach[l] = counter.numberEach[l];
 	}
 	cout << "minsofar = " << counter.minsofar << endl;
-	cout << counter.numberEach[0] << " 1 cent coins\n";
-	cout << counter.numberEach[1] << " 7 cent coins\n";
-	cout << counter.numberEach[2] << " 30 cent coins\n";
-	cout << counter.numberEach[3] << " 84 cent coins\n";
-	cout << counter.numberEach[4] << " 235 cent coins\n";
+	cout << F[lowest].numberEach[0] << " 1 cent coins\n";
+	cout << F[lowest].numberEach[1] << " 7 cent coins\n";
+	cout << F[lowest].numberEach[2] << " 30 cent coins\n";
+	cout << F[lowest].numberEach[3] << " 84 cent coins\n";
+	cout << F[lowest].numberEach[4] << " 235 cent coins\n";
 }
