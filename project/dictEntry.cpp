@@ -87,6 +87,9 @@ bool dictEntry::operator<=(string str)
 }
 
 
-int main() {
-	// prevent errors compiling
+int main()
+{
+	searchTree* tree;
+	dictionary dict(tree);
+	dict.readFile("testEntries.txt");
 }

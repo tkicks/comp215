@@ -9,6 +9,8 @@ Dictionary
 + RBSearchTree  
 	+ successor  
 	+ virtual functions  
-+ Step 26  
++ dictionary.cpp  
+	+ readFile() remove : at end of WORD  
+	+ trace seg fault  
 
 ##For now it compiles, so working so far.
