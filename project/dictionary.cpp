@@ -54,15 +54,16 @@ void dictionary::readFile(string filename)
 // enters dictionary entries from filename param
 //		file into chosen searchTree tree
 {
-	string line, word, definition, endWord;
+	string line, word, definition;
+	int endWord;
 	ifstream dictionaryFile(filename.c_str());
 	while (getline(dictionaryFile, line))
 	{
 		if (line.length() > 0)
 		{
 			endWord = line.find(':', 0);
-			word = line.substr(0, endWord.length());
-			definition = line.substr(word.length());
+			word = line.substr(0, endWord);
+			definition = line.substr(word.length()+ 2);
 			// istringstream iss(line);
 			// iss >> word >> definition;
 			cout << word << endl;
