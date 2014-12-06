@@ -1,9 +1,15 @@
+#include "dictEntry.cpp"
+#include "treeNode.h"
+#include "searchTree.h"
+#include "searchTreeNode.cpp"
+#include "binarySearchTree.cpp"
+#include "RBsearchTreeNode.cpp"
+#include "RBSearchTree.cpp"
 #include "dictionary.h"
 #include <string>
 #include <iostream>
 #include <locale>	// toupper
 #include <fstream>
-#include <sstream>
 using namespace std;
 
 dictionary::dictionary(searchTree *n)
@@ -35,10 +41,7 @@ void dictionary::add(dictEntry entry)
 // adds a dictEntry to the chosen tree by calling
 // 		searchTree insert()
 {
-	cout << "made it into add()\n";
-	searchTree *tree;
-	cout << "initialized searchTree\n";
-	tree->insert(entry);
+	dict->insert(entry);
 	cout << "inserted dictEntry into tree\n";
 }
 
@@ -53,9 +56,11 @@ void dictionary::remove(string word)
 void dictionary::readFile(string filename)
 // enters dictionary entries from filename param
 //		file into chosen searchTree tree
+// endWord = index of ':' which signifies end WORD
+// only stores lines that aren't blank (length() > 0)
 {
-	string line, word, definition;
 	int endWord;
+	string line, word, definition;
 	ifstream dictionaryFile(filename.c_str());
 	while (getline(dictionaryFile, line))
 	{
@@ -64,23 +69,40 @@ void dictionary::readFile(string filename)
 			endWord = line.find(':', 0);
 			word = line.substr(0, endWord);
 			definition = line.substr(word.length()+ 2);
-			// istringstream iss(line);
-			// iss >> word >> definition;
 			cout << word << endl;
 			cout << definition << endl;
-			// for (int i = 0; i < word.length(); i++)
-			// {
-			// 	word[i] = word[i];
-			// }
-			// cout << word << endl;
-			// dictEntry entry(word, definition);
-			// cout << "dictEntry created successfully\n";
-			// add(entry);
-			// cout << "dictEntry added successfully to the dictionary\n";
+
+			dictEntry entry(word, definition);
+			cout << "dictEntry created successfully\n";
+			add(entry);
+			cout << "dictEntry added successfully to the dictionary\n";
 		}
 	}
 }
 
+void dictionary::writeFilePreorder(string filename)
+// calls searchTree preOrder() file writing function
+//		on filename parameter
+{
+	searchTree *tree;
+	tree->preOrder(filename);
+}
+
+void dictionary::writeFileInorder(string filename)
+// calls searchTree inOrder() file writing function
+//		on filename parameter
+{
+	searchTree *tree;
+	tree->inOrder(filename);
+}
+
+void dictionary::writeFilePostorder(string filename)
+// calls searchTree postOrder() file writing function
+//		on filename parameter
+{
+	searchTree *tree;
+	tree->postOrder(filename);
+}
 
 string makeCap(string word)
 // make the words capital for accurate string matching
@@ -91,4 +113,29 @@ string makeCap(string word)
 		word[i] = toupper(word[i]);
 	}
 	return word;
+}
+
+int main()
+{
+	int whichTree;
+	cout << "Binary Tree [1] or Red-Black [2] Tree? ";
+	cin >> whichTree;
+	if (whichTree == 1)
+	{
+		binarySearchTree* tree;
+		dictionary dict(tree);
+		dict.readFile("testEntries.txt");
+	}
+	else if (whichTree == 2)
+	{
+		RBSearchTree* tree;
+		dictionary dict(tree);
+		dict.readFile("testEntries.txt");
+	}
+	else
+	{
+		cout << "You broke me with invalid input.\nClosing dictionary.\n";
+		return -1;
+	}
+
 }

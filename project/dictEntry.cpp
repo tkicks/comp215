@@ -1,12 +1,5 @@
-#include <iostream>
 #include <string>
 #include "dictEntry.h"
-#include "treeNode.h"
-#include "searchTree.h"
-#include "searchTreeNode.cpp"
-#include "binarySearchTree.cpp"
-#include "RBsearchTreeNode.cpp"
-#include "dictionary.cpp"
 
 using namespace std;
 
@@ -84,12 +77,4 @@ bool dictEntry::operator<=(string str)
 		return true;
 	else
 		return false;
-}
-
-
-int main()
-{
-	searchTree* tree;
-	dictionary dict(tree);
-	dict.readFile("testEntries.txt");
 }
