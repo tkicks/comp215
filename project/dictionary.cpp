@@ -19,6 +19,13 @@ dictionary::dictionary(searchTree *n)
 	this->dict = n;
 }
 
+dictionary::~dictionary()
+// destructor for dictionary
+// calls destructor on the tree then deletes itself
+{
+	delete(this);
+}
+
 string dictionary::search(string word)
 // uses searchTree search() to find a treeNode*
 // if treeNode != NULL calls getWord() and getDef()
@@ -174,6 +181,10 @@ int main()
 						default:
 							cout << "Not a valid option\n";
 					}
+					break;
+				case 0:
+					tree.~searchTree();
+					dict.~dictionary();
 				default:
 					cout << "Invalid input.";
 			}
@@ -234,6 +245,10 @@ int main()
 						default:
 							cout << "Not a valid option\n";
 					}
+					break;
+				case 0:
+					tree.~searchTree();
+					dict.~dictionary();
 				default:
 					cout << "Invalid input.\n";
 			}

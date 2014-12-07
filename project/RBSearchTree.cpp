@@ -9,7 +9,6 @@ RBSearchTree::RBSearchTree()
 void RBSearchTree::insert(dictEntry *in)
 // insert a dictEntry into the binary search tree
 {
-	RBsearchTreeNode *root = this->root;
 	if (root == NULL)
 		root = new RBsearchTreeNode(in);
 	else

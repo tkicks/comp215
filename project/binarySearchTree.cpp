@@ -16,7 +16,6 @@ binarySearchTree::binarySearchTree()
 void binarySearchTree::insert(dictEntry *in)
 // insert a dictEntry into the binary search tree
 {
-	searchTreeNode *root = this->root;
 	if (root == NULL)
 		root = new searchTreeNode(in);
 	else
