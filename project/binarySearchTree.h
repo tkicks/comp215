@@ -5,6 +5,7 @@ using namespace std;
 class binarySearchTree: public searchTree {
 	public:
 		binarySearchTree();
+		~binarySearchTree();
 		virtual void insert(dictEntry *in);
 		virtual void insert_h(dictEntry *in, searchTreeNode *root);
 		virtual void remove(string w);
@@ -22,6 +23,7 @@ class binarySearchTree: public searchTree {
 		virtual void postorder_h(searchTreeNode *n);
 		virtual void inorder_h(searchTreeNode *n);
 		virtual void visit(searchTreeNode *n);
+		virtual void destroy_tree(searchTreeNode *leaf);
 		virtual string getWord(searchTreeNode *n);
 		virtual string getDefinition(searchTreeNode *n);
 };

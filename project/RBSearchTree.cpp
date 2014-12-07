@@ -6,6 +6,22 @@ RBSearchTree::RBSearchTree()
 	root = NULL;
 }
 
+RBSearchTree::~RBSearchTree()
+{
+	destroy_tree(root);
+}
+
+
+void RBSearchTree::destroy_tree(RBsearchTreeNode *leaf)
+{
+	if (leaf != NULL)
+	{
+		destroy_tree(leaf->left);
+		destroy_tree(leaf->right);
+		delete(leaf);
+	}
+}
+
 void RBSearchTree::insert(dictEntry *in)
 // insert a dictEntry into the binary search tree
 {

@@ -2,6 +2,10 @@ Dictionary
 ==========  
 
 `By: Tyler Kickham`  
+  
+#FINISHED  
++ dictionary.cpp  
+	+ add()  
 
 #TODO  
 + binarySearchTree.h/.cpp  
@@ -9,6 +13,6 @@ Dictionary
 + RBSearchTree  
 	+ successor  
 + dictionary.cpp  
-	+ searchTree insert() doesn't store in tree  
+	+ search() seg faults after working correctly  
 
 ##For now it compiles, so working so far.

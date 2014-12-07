@@ -7,6 +7,7 @@ class RBSearchTree: public searchTree {
 // functions never used, used as base class for other classes
 	public:
 		RBSearchTree();
+		~RBSearchTree();
 		virtual void insert(dictEntry *in);
 		virtual void insert_h(dictEntry *in, RBsearchTreeNode *root);
 		virtual void remove(string w);
@@ -24,6 +25,7 @@ class RBSearchTree: public searchTree {
 		virtual void postorder_h(RBsearchTreeNode *n);
 		virtual void inorder_h(RBsearchTreeNode *n);
 		virtual void visit(RBsearchTreeNode *n);
+		virtual void destroy_tree(RBsearchTreeNode *leaf);
 		virtual string getWord(RBsearchTreeNode *n);
 		virtual string getDefinition(RBsearchTreeNode *n);
 };

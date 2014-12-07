@@ -13,6 +13,22 @@ binarySearchTree::binarySearchTree()
 	root = NULL;
 }
 
+binarySearchTree::~binarySearchTree()
+{
+	destroy_tree(root);
+}
+
+
+void binarySearchTree::destroy_tree(searchTreeNode *leaf)
+{
+	if (leaf != NULL)
+	{
+		destroy_tree(leaf->left);
+		destroy_tree(leaf->right);
+		delete(leaf);
+	}
+}
+
 void binarySearchTree::insert(dictEntry *in)
 // insert a dictEntry into the binary search tree
 {
