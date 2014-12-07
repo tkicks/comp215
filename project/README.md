@@ -8,9 +8,7 @@ Dictionary
 	+ successor  
 + RBSearchTree  
 	+ successor  
-	+ virtual functions  
 + dictionary.cpp  
-	+ readFile() remove : at end of WORD  
-	+ trace seg fault  
+	+ searchTree insert() doesn't store in tree  
 
 ##For now it compiles, so working so far.

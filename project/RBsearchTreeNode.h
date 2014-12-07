@@ -4,7 +4,6 @@ using namespace std;
 class RBsearchTreeNode: public treeNode {
 	public:
 		enum RBcolor {RED, BLACK};
-		RBcolor color;
 		RBsearchTreeNode *left;
 		RBsearchTreeNode *right;
 		RBsearchTreeNode *parent;

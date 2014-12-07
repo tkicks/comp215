@@ -11,9 +11,9 @@ class binarySearchTree: public searchTree {
 		virtual searchTreeNode* search(string w);
 		virtual searchTreeNode* search_h(string w, searchTreeNode *root);
 		// virtual searchTreeNode* successor(searchTreeNode *n);
-		virtual void preorder(string filename);
-		virtual void postorder(string filename);
-		virtual void inorder(string filename);
+		virtual void preOrder(string filename);
+		virtual void postOrder(string filename);
+		virtual void inOrder(string filename);
 
 	protected:
 		searchTreeNode *root;

@@ -4,6 +4,7 @@ using namespace std;
 RBsearchTreeNode::RBsearchTreeNode(dictEntry *d)
 // constructor setting data to passed in dictEntry
 {
+	RBcolor color;
 	data = d;
 	left = NULL;
 	right = NULL;
@@ -14,6 +15,7 @@ RBsearchTreeNode::RBsearchTreeNode(dictEntry *d)
 RBsearchTreeNode::RBsearchTreeNode(dictEntry *d, RBsearchTreeNode *p)
 // constructor setting data and parent to values passed in
 {
+	RBcolor color;
 	data = d;
 	parent = p;
 	left = NULL;
@@ -23,6 +25,7 @@ RBsearchTreeNode::RBsearchTreeNode(dictEntry *d, RBsearchTreeNode *p)
 
 RBsearchTreeNode::RBsearchTreeNode(dictEntry *d, RBsearchTreeNode *l, RBsearchTreeNode *r, RBsearchTreeNode *p)
 {
+	RBcolor color;
 	data = d;
 	left = l;
 	right = r;

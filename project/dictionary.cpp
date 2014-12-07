@@ -16,7 +16,7 @@ dictionary::dictionary(searchTree *n)
 // constructor for dictionary
 // creates object dict of class searchTree
 {
-	dict = n;
+	this->dict = n;
 }
 
 string dictionary::search(string word)
@@ -26,7 +26,8 @@ string dictionary::search(string word)
 {
 	string theWord, definition;
 	word = makeCap(word);
-	treeNode* entry = dict->search(word);
+	treeNode *entry = dict->search(word);
+	cout << "made treeNode successfully\n";
 	if (entry == NULL)
 		cout << "The word " << word << " was not found in the dictionary.\n";
 	else
@@ -41,8 +42,7 @@ void dictionary::add(dictEntry entry)
 // adds a dictEntry to the chosen tree by calling
 // 		searchTree insert()
 {
-	dict->insert(entry);
-	cout << "inserted dictEntry into tree\n";
+	dict->insert(&entry);
 }
 
 void dictionary::remove(string word)
@@ -73,9 +73,7 @@ void dictionary::readFile(string filename)
 			cout << definition << endl;
 
 			dictEntry entry(word, definition);
-			cout << "dictEntry created successfully\n";
 			add(entry);
-			cout << "dictEntry added successfully to the dictionary\n";
 		}
 	}
 }
@@ -111,31 +109,139 @@ string makeCap(string word)
 	while (word[i] != '\0')
 	{
 		word[i] = toupper(word[i]);
+		i++;
 	}
 	return word;
 }
 
 int main()
 {
-	int whichTree;
+	int whichTree, whichOption, whichOrder;
+	string filename, newWord, newDefinition, wordToGet, removeWord;
 	cout << "Binary Tree [1] or Red-Black [2] Tree? ";
 	cin >> whichTree;
 	if (whichTree == 1)
 	{
-		binarySearchTree* tree;
-		dictionary dict(tree);
-		dict.readFile("testEntries.txt");
+		binarySearchTree tree;
+		dictionary dict(&tree);
+		do {
+			cout << "Read [1], Add [2], Search [3], Remove [4], Save [5], Close [0]: ";
+			cin >> whichOption;
+			switch (whichOption) {
+				case 1:
+					cout << "Enter file name: ";
+					cin >> filename;
+					dict.readFile("testEntries.txt");
+					// dict.readFile(filename);
+					break;
+				case 2:
+					// in brackets so other tree doesn't cross define dictEntry entry
+					{
+						cout << "Enter word: ";
+						cin >> newWord;
+						newWord = makeCap(newWord);
+						cout << "Enter definition: ";
+						getline(cin.ignore(), newDefinition);
+						dictEntry entry(newWord, newDefinition);
+						dict.add(entry);
+					}
+					break;
+				case 3:
+					cout << "Enter word to search for: ";
+					cin >> wordToGet;
+					dict.search(wordToGet);
+					break;
+				case 4:
+					cout << "Enter word to remove: ";
+					cin >> removeWord;
+					dict.remove(removeWord);
+					break;
+				case 5:
+					cout << "Preorder [1], Inorder [2], Postorder [3]: ";
+					cin >> whichOrder;
+					cout << "Enter filename: ";
+					cin >> filename;
+					switch (whichOrder) {
+						case 1:
+							dict.writeFilePreorder(filename);
+							break;
+						case 2:
+							dict.writeFileInorder(filename);
+							break;
+						case 3:
+							dict.writeFilePostorder(filename);
+							break;
+						default:
+							cout << "Not a valid option\n";
+					}
+				default:
+					cout << "Invalid input.";
+			}
+		} while (whichOption != 0);
+		// dict.readFile("testEntries.txt");
 	}
 	else if (whichTree == 2)
 	{
-		RBSearchTree* tree;
-		dictionary dict(tree);
-		dict.readFile("testEntries.txt");
+		RBSearchTree tree;
+		dictionary dict(&tree);
+		do {
+			cout << "Read [1], Add [2], Search [3], Remove [4], Save [5], Close [0]: ";
+			cin >> whichOption;
+			switch (whichOption) {
+				case 1:
+					cout << "Enter file name: ";
+					cin >> filename;
+					dict.readFile("testEntries.txt");
+					// dict.readFile(filename);
+					break;
+				case 2:
+					// in brackets so other tree doesn't cross define dictEntry entry
+					{
+						cout << "Enter word: ";
+						cin >> newWord;
+						newWord = makeCap(newWord);
+						cout << "Enter definition: ";
+						getline(cin.ignore(), newDefinition);
+						dictEntry entry(newWord, newDefinition);
+						dict.add(entry);
+					}
+					break;
+				case 3:
+					cout << "Enter word to search for: ";
+					cin >> wordToGet;
+					dict.search(wordToGet);
+					break;
+				case 4:
+					cout << "Enter word to remove: ";
+					cin >> removeWord;
+					dict.remove(removeWord);
+					break;
+				case 5:
+					cout << "Preorder [1], Inorder [2], Postorder [3]: ";
+					cin >> whichOrder;
+					cout << "Enter filename: ";
+					cin >> filename;
+					switch (whichOrder) {
+						case 1:
+							dict.writeFilePreorder(filename);
+							break;
+						case 2:
+							dict.writeFileInorder(filename);
+							break;
+						case 3:
+							dict.writeFilePostorder(filename);
+							break;
+						default:
+							cout << "Not a valid option\n";
+					}
+				default:
+					cout << "Invalid input.\n";
+			}
+		} while (whichOption != 0);
 	}
 	else
 	{
 		cout << "You broke me with invalid input.\nClosing dictionary.\n";
 		return -1;
 	}
-
 }

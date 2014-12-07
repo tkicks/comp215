@@ -3,6 +3,7 @@ TODO: successor in remove()
 */
 
 #include "binarySearchTree.h"
+#include <iostream>
 #include <queue>
 using namespace std;
 
@@ -15,7 +16,7 @@ binarySearchTree::binarySearchTree()
 void binarySearchTree::insert(dictEntry *in)
 // insert a dictEntry into the binary search tree
 {
-	searchTreeNode *root = root;
+	searchTreeNode *root = this->root;
 	if (root == NULL)
 		root = new searchTreeNode(in);
 	else
@@ -48,7 +49,7 @@ searchTreeNode* binarySearchTree::search(string w)
 // search for string w in tree and remove
 // dictEntry with word == w
 {
-	searchTreeNode *root = root;
+	searchTreeNode *root = this->root;
 	return search_h(w, root);
 }
 
@@ -121,7 +122,7 @@ void binarySearchTree::remove(string w)
 	}
 }
 
-void binarySearchTree::preorder(string filename)
+void binarySearchTree::preOrder(string filename)
 // calls protected helper function to visit nodes
 // protected b/c don't want people messing w/ order
 // 		or else new tree will be messed up
@@ -130,6 +131,7 @@ void binarySearchTree::preorder(string filename)
 	strcpy(c_file, filename.c_str());
 	fout.open(c_file, ofstream::out);
 	preorder_h(root);
+	fout.close();
 }
 
 void binarySearchTree::preorder_h(searchTreeNode *n)
@@ -145,13 +147,14 @@ void binarySearchTree::preorder_h(searchTreeNode *n)
 	}
 }
 
-void binarySearchTree::postorder(string filename)
+void binarySearchTree::postOrder(string filename)
 // calls protected helper function to visit nodes
 {
 	char* c_file;
 	strcpy(c_file, filename.c_str());
 	fout.open(c_file, ofstream::out);
 	postorder_h(root);
+	fout.close();
 }
 
 void binarySearchTree::postorder_h(searchTreeNode *n)
@@ -167,13 +170,14 @@ void binarySearchTree::postorder_h(searchTreeNode *n)
 	}
 }
 
-void binarySearchTree::inorder(string filename)
+void binarySearchTree::inOrder(string filename)
 // calls protected helper function to visit nodes
 {
 	char* c_file;
 	strcpy(c_file, filename.c_str());
 	fout.open(c_file, ofstream::out);
 	inorder_h(root);
+	fout.close();
 }
 
 void binarySearchTree::inorder_h(searchTreeNode *n)

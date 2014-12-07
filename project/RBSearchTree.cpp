@@ -9,7 +9,7 @@ RBSearchTree::RBSearchTree()
 void RBSearchTree::insert(dictEntry *in)
 // insert a dictEntry into the binary search tree
 {
-	RBsearchTreeNode *root = root;
+	RBsearchTreeNode *root = this->root;
 	if (root == NULL)
 		root = new RBsearchTreeNode(in);
 	else
@@ -42,7 +42,7 @@ RBsearchTreeNode* RBSearchTree::search(string w)
 // search for string w in tree and remove
 // dictEntry with word == w
 {
-	RBsearchTreeNode *root = root;
+	RBsearchTreeNode *root = this->root;
 	return search_h(w, root);
 }
 
@@ -115,7 +115,7 @@ void RBSearchTree::remove(string w)
 	}
 }
 
-void RBSearchTree::preorder(string filename)
+void RBSearchTree::preOrder(string filename)
 // calls protected helper function to visit nodes
 // protected b/c don't want people messing w/ order
 // 		or else new tree will be messed up
@@ -124,6 +124,7 @@ void RBSearchTree::preorder(string filename)
 	strcpy(c_file, filename.c_str());
 	fout.open(c_file, ofstream::out);
 	preorder_h(root);
+	fout.close();
 }
 
 void RBSearchTree::preorder_h(RBsearchTreeNode *n)
@@ -139,13 +140,14 @@ void RBSearchTree::preorder_h(RBsearchTreeNode *n)
 	}
 }
 
-void RBSearchTree::postorder(string filename)
+void RBSearchTree::postOrder(string filename)
 // calls protected helper function to visit nodes
 {
 	char* c_file;
 	strcpy(c_file, filename.c_str());
 	fout.open(c_file, ofstream::out);
 	postorder_h(root);
+	fout.close();
 }
 
 void RBSearchTree::postorder_h(RBsearchTreeNode *n)
@@ -161,13 +163,14 @@ void RBSearchTree::postorder_h(RBsearchTreeNode *n)
 	}
 }
 
-void RBSearchTree::inorder(string filename)
+void RBSearchTree::inOrder(string filename)
 // calls protected helper function to visit nodes
 {
 	char* c_file;
 	strcpy(c_file, filename.c_str());
 	fout.open(c_file, ofstream::out);
 	inorder_h(root);
+	fout.close();
 }
 
 void RBSearchTree::inorder_h(RBsearchTreeNode *n)

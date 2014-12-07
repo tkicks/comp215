@@ -13,9 +13,9 @@ class RBSearchTree: public searchTree {
 		virtual RBsearchTreeNode* search(string w);
 		virtual RBsearchTreeNode* search_h(string w, RBsearchTreeNode *root);
 		// virtual RBsearchTreeNode* successor(RBsearchTreeNode *n);
-		virtual void preorder(string filename);
-		virtual void postorder(string filename);
-		virtual void inorder(string filename);
+		virtual void preOrder(string filename);
+		virtual void postOrder(string filename);
+		virtual void inOrder(string filename);
 
 	protected:
 		RBsearchTreeNode *root;
