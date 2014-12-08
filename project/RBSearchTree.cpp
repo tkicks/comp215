@@ -26,7 +26,7 @@ void RBSearchTree::insert(dictEntry *in)
 // insert a dictEntry into the binary search tree
 {
 	if (root == NULL)
-		root = new RBsearchTreeNode(in);
+		this->root = new RBsearchTreeNode(in);
 	else
 		insert_h(in, root);
 }
@@ -66,14 +66,27 @@ RBsearchTreeNode* RBSearchTree::search_h(string w, RBsearchTreeNode *root)
 // dictEntry with word == w
 // does the work for search()
 {
-	if (root == NULL)
+	cout << "inside rbsearch.search_h()\n";
+	if (*(root->data) == NULL)
+	{
+		cout << "root is null\n";
 		return NULL;
+	}
 	else if (*(root->data) == w)
+	{
+		cout << "w == root\n";
 		return root;
+	}
 	else if (*(root->data) < w)
+	{
+		cout << w << " comes before " << root->data->getWord() << endl;
 		return search_h(w, root->left);
+	}
 	else
+	{
+		cout << w << " comes after " << root->data->getWord() << endl;
 		return search_h(w, root->right);
+	}
 }	
 
 void RBSearchTree::remove(string w)

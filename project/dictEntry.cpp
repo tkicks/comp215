@@ -62,7 +62,7 @@ bool dictEntry::operator>=(string str)
 // is greater in the this->word or if this->word is longer or
 // if the strings are equal
 {
-	if ((this->word.compare(str)) == 0 or (this->word.compare(str) > 0))
+	if ((this->word.compare(str) == 0) or (this->word.compare(str) > 0))
 		return true;
 	else
 		return false;
@@ -73,7 +73,7 @@ bool dictEntry::operator<=(string str)
 // is lower in the this->word or if this->word is shorter or
 // if the strings are equal
 {
-	if ((this->word.compare(str)) == 0 or (this->word.compare(str) < 0))
+	if ((this->word.compare(str) == 0) or (this->word.compare(str) < 0))
 		return true;
 	else
 		return false;

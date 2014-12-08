@@ -39,10 +39,12 @@ string dictionary::search(string word)
 		cout << "The word " << word << " was not found in the dictionary.\n";
 	else
 	{
+		cout << "entry not null\n";
 		theWord = entry->data->getWord();
 		definition = entry->data->getDefinition();
 		cout << word << ": " << definition << endl;
 	}
+	return "words";
 }
 
 void dictionary::add(dictEntry entry)
@@ -124,7 +126,7 @@ string makeCap(string word)
 int main()
 {
 	int whichTree, whichOption, whichOrder;
-	string filename, newWord, newDefinition, wordToGet, removeWord;
+	string filename, newWord, newDefinition, wordToGet, removeWord, test;
 	cout << "Binary Tree [1] or Red-Black [2] Tree? ";
 	cin >> whichTree;
 	if (whichTree == 1)
@@ -132,6 +134,7 @@ int main()
 		binarySearchTree tree;
 		dictionary dict(&tree);
 		do {
+			cin.clear();
 			cout << "Read [1], Add [2], Search [3], Remove [4], Save [5], Close [0]: ";
 			cin >> whichOption;
 			switch (whichOption) {
@@ -156,7 +159,7 @@ int main()
 				case 3:
 					cout << "Enter word to search for: ";
 					cin >> wordToGet;
-					dict.search(wordToGet);
+					test = dict.search(wordToGet);
 					break;
 				case 4:
 					cout << "Enter word to remove: ";
@@ -196,6 +199,7 @@ int main()
 		RBSearchTree tree;
 		dictionary dict(&tree);
 		do {
+			cin.clear();
 			cout << "Read [1], Add [2], Search [3], Remove [4], Save [5], Close [0]: ";
 			cin >> whichOption;
 			switch (whichOption) {
@@ -220,7 +224,7 @@ int main()
 				case 3:
 					cout << "Enter word to search for: ";
 					cin >> wordToGet;
-					dict.search(wordToGet);
+					test = dict.search(wordToGet);
 					break;
 				case 4:
 					cout << "Enter word to remove: ";

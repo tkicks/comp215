@@ -32,31 +32,39 @@ void binarySearchTree::destroy_tree(searchTreeNode *leaf)
 void binarySearchTree::insert(dictEntry *in)
 // insert a dictEntry into the binary search tree
 {
+	// searchTreeNode *root = this->root;
 	if (root == NULL)
 		root = new searchTreeNode(in);
 	else
+	{
+		cout << "root not NULL\n";
 		insert_h(in, root);
+	}
 }
 
-void binarySearchTree::insert_h(dictEntry *in, searchTreeNode *root)
+void binarySearchTree::insert_h(dictEntry *in, searchTreeNode *current)
 // inserts a dictEntry into the binary search tree if
 // there's already a root entry
 {
-	if (in == root->data)
-		return;
-	else if (in < root->data)
+	if (in == current->data)
 	{
-		if (root->left == NULL)
-			root->left = new searchTreeNode(in, root);
+		cout << in->getWord() << " is the same as the root node " << current->data->getWord() << endl;
+		return;
+	}
+	else if (in < current->data)
+	{
+		cout << in->getWord() << " comes before " << current->data->getWord() << endl;
+		if (current->left == NULL)
+			current->left = new searchTreeNode(in, current);
 		else
-			insert_h(in, root->left);
+			insert_h(in, current->left);
 	}
 	else
 	{
-		if (root->right == NULL)
-			root->right = new searchTreeNode(in, root);
+		if (current->right == NULL)
+			current->right = new searchTreeNode(in, current);
 		else
-			insert_h(in, root->right);
+			insert_h(in, current->right);
 	}
 }
 
