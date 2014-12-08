@@ -34,10 +34,14 @@ void binarySearchTree::insert(dictEntry *in)
 {
 	// searchTreeNode *root = this->root;
 	if (root == NULL)
+	{
+		cout << "root is NULL\n";
 		root = new searchTreeNode(in);
+	}
 	else
 	{
 		cout << "root not NULL\n";
+		cout << in->getWord() << " : " << root->data->getWord() << endl;
 		insert_h(in, root);
 	}
 }
@@ -46,12 +50,12 @@ void binarySearchTree::insert_h(dictEntry *in, searchTreeNode *current)
 // inserts a dictEntry into the binary search tree if
 // there's already a root entry
 {
-	if (in == current->data)
+	if (*(in) == current->data->getWord())
 	{
 		cout << in->getWord() << " is the same as the root node " << current->data->getWord() << endl;
 		return;
 	}
-	else if (in < current->data)
+	else if (*(in) < current->data->getWord())
 	{
 		cout << in->getWord() << " comes before " << current->data->getWord() << endl;
 		if (current->left == NULL)

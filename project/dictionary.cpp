@@ -26,7 +26,7 @@ dictionary::~dictionary()
 	delete(this);
 }
 
-string dictionary::search(string word)
+void dictionary::search(string word)
 // uses searchTree search() to find a treeNode*
 // if treeNode != NULL calls getWord() and getDef()
 // 		from its dictEntry (data)
@@ -44,14 +44,13 @@ string dictionary::search(string word)
 		definition = entry->data->getDefinition();
 		cout << word << ": " << definition << endl;
 	}
-	return "words";
 }
 
-void dictionary::add(dictEntry entry)
+void dictionary::add(dictEntry *entry)
 // adds a dictEntry to the chosen tree by calling
 // 		searchTree insert()
 {
-	dict->insert(&entry);
+	dict->insert(entry);
 }
 
 void dictionary::remove(string word)
@@ -68,6 +67,7 @@ void dictionary::readFile(string filename)
 // endWord = index of ':' which signifies end WORD
 // only stores lines that aren't blank (length() > 0)
 {
+	dictEntry *entry;
 	int endWord;
 	string line, word, definition;
 	ifstream dictionaryFile(filename.c_str());
@@ -81,7 +81,7 @@ void dictionary::readFile(string filename)
 			cout << word << endl;
 			cout << definition << endl;
 
-			dictEntry entry(word, definition);
+			entry = new dictEntry(word, definition);
 			add(entry);
 		}
 	}
@@ -125,8 +125,9 @@ string makeCap(string word)
 
 int main()
 {
+	dictEntry *entry;
 	int whichTree, whichOption, whichOrder;
-	string filename, newWord, newDefinition, wordToGet, removeWord, test;
+	string filename, newWord, newDefinition, wordToGet, removeWord;
 	cout << "Binary Tree [1] or Red-Black [2] Tree? ";
 	cin >> whichTree;
 	if (whichTree == 1)
@@ -152,14 +153,14 @@ int main()
 						newWord = makeCap(newWord);
 						cout << "Enter definition: ";
 						getline(cin.ignore(), newDefinition);
-						dictEntry entry(newWord, newDefinition);
+						entry = new dictEntry(newWord, newDefinition);
 						dict.add(entry);
 					}
 					break;
 				case 3:
 					cout << "Enter word to search for: ";
 					cin >> wordToGet;
-					test = dict.search(wordToGet);
+					dict.search(wordToGet);
 					break;
 				case 4:
 					cout << "Enter word to remove: ";
@@ -217,14 +218,14 @@ int main()
 						newWord = makeCap(newWord);
 						cout << "Enter definition: ";
 						getline(cin.ignore(), newDefinition);
-						dictEntry entry(newWord, newDefinition);
+						entry = new dictEntry(newWord, newDefinition);
 						dict.add(entry);
 					}
 					break;
 				case 3:
 					cout << "Enter word to search for: ";
 					cin >> wordToGet;
-					test = dict.search(wordToGet);
+					dict.search(wordToGet);
 					break;
 				case 4:
 					cout << "Enter word to remove: ";
