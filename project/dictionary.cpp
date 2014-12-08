@@ -34,7 +34,7 @@ void dictionary::search(string word)
 	string theWord, definition;
 	word = makeCap(word);
 	treeNode *entry = dict->search(word);
-	cout << "made treeNode successfully\n";
+	cout << "made treeNode\n";
 	if (entry == NULL)
 		cout << "The word " << word << " was not found in the dictionary.\n";
 	else

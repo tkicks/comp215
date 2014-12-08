@@ -34,16 +34,9 @@ void binarySearchTree::insert(dictEntry *in)
 {
 	// searchTreeNode *root = this->root;
 	if (root == NULL)
-	{
-		cout << "root is NULL\n";
 		root = new searchTreeNode(in);
-	}
 	else
-	{
-		cout << "root not NULL\n";
-		cout << in->getWord() << " : " << root->data->getWord() << endl;
 		insert_h(in, root);
-	}
 }
 
 void binarySearchTree::insert_h(dictEntry *in, searchTreeNode *current)
@@ -51,13 +44,9 @@ void binarySearchTree::insert_h(dictEntry *in, searchTreeNode *current)
 // there's already a root entry
 {
 	if (*(in) == current->data->getWord())
-	{
-		cout << in->getWord() << " is the same as the root node " << current->data->getWord() << endl;
 		return;
-	}
 	else if (*(in) < current->data->getWord())
 	{
-		cout << in->getWord() << " comes before " << current->data->getWord() << endl;
 		if (current->left == NULL)
 			current->left = new searchTreeNode(in, current);
 		else
@@ -76,23 +65,37 @@ searchTreeNode* binarySearchTree::search(string w)
 // search for string w in tree and remove
 // dictEntry with word == w
 {
-	searchTreeNode *root = this->root;
 	return search_h(w, root);
 }
 
-searchTreeNode* binarySearchTree::search_h(string w, searchTreeNode *root)
+searchTreeNode* binarySearchTree::search_h(string w, searchTreeNode *current)
 // searches for string w in tree and removes
 // dictEntry with word == w
 // does the work for search()
 {
-	if (root == NULL)
-		return NULL;
-	else if (*(root->data) == w)
-		return root;
-	else if (*(root->data) < w)
-		return search_h(w, root->left);
+	if (*(current->data) == w)
+	{
+		cout << w << " is the same as " << current->data->getWord() << endl;
+		return current;
+	}
+	else if (*(current->data) > w)
+	{
+		cout << w << " is before " << current->data->getWord() << endl;
+		if (current->left != NULL)
+			return search_h(w, current->left);
+		else
+			return NULL;
+	}
+	else if (*(current->data) < w)
+	{
+		cout << w << " is after " << current->data->getWord() << endl;
+		if (current->right != NULL)
+			return search_h(w, current->right);
+		else
+			return NULL;
+	}
 	else
-		return search_h(w, root->right);
+		return NULL;
 }	
 
 void binarySearchTree::remove(string w)

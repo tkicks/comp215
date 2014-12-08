@@ -26,30 +26,30 @@ void RBSearchTree::insert(dictEntry *in)
 // insert a dictEntry into the binary search tree
 {
 	if (root == NULL)
-		this->root = new RBsearchTreeNode(in);
+		root = new RBsearchTreeNode(in);
 	else
 		insert_h(in, root);
 }
 
-void RBSearchTree::insert_h(dictEntry *in, RBsearchTreeNode *root)
+void RBSearchTree::insert_h(dictEntry *in, RBsearchTreeNode *current)
 // inserts a dictEntry into the binary search tree if
 // there's already a root entry
 {
-	if (in == root->data)
+	if (*(in) == current->data->getWord())
 		return;
-	else if (in < root->data)
+	else if (*(in) < current->data->getWord())
 	{
-		if (root->left == NULL)
-			root->left = new RBsearchTreeNode(in, root);
+		if (current->left == NULL)
+			current->left = new RBsearchTreeNode(in, current);
 		else
-			insert_h(in, root->left);
+			insert_h(in, current->left);
 	}
 	else
 	{
-		if (root->right == NULL)
-			root->right = new RBsearchTreeNode(in, root);
+		if (current->right == NULL)
+			current->right = new RBsearchTreeNode(in, current);
 		else
-			insert_h(in, root->right);
+			insert_h(in, current->right);
 	}
 }
 
@@ -57,36 +57,37 @@ RBsearchTreeNode* RBSearchTree::search(string w)
 // search for string w in tree and remove
 // dictEntry with word == w
 {
-	RBsearchTreeNode *root = this->root;
 	return search_h(w, root);
 }
 
-RBsearchTreeNode* RBSearchTree::search_h(string w, RBsearchTreeNode *root)
+RBsearchTreeNode* RBSearchTree::search_h(string w, RBsearchTreeNode *current)
 // searches for string w in tree and removes
 // dictEntry with word == w
 // does the work for search()
 {
-	cout << "inside rbsearch.search_h()\n";
-	if (*(root->data) == NULL)
+	if (*(current->data) == w)
 	{
-		cout << "root is null\n";
-		return NULL;
+		cout << w << " is the same as " << current->data->getWord() << endl;
+		return current;
 	}
-	else if (*(root->data) == w)
+	else if (*(current->data) > w)
 	{
-		cout << "w == root\n";
-		return root;
+		cout << w << " is before " << current->data->getWord() << endl;
+		if (current->left != NULL)
+			return search_h(w, current->left);
+		else
+			return NULL;
 	}
-	else if (*(root->data) < w)
+	else if (*(current->data) < w)
 	{
-		cout << w << " comes before " << root->data->getWord() << endl;
-		return search_h(w, root->left);
+		cout << w << " is after " << current->data->getWord() << endl;
+		if (current->right != NULL)
+			return search_h(w, current->right);
+		else
+			return NULL;
 	}
 	else
-	{
-		cout << w << " comes after " << root->data->getWord() << endl;
-		return search_h(w, root->right);
-	}
+		return NULL;
 }	
 
 void RBSearchTree::remove(string w)

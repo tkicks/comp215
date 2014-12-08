@@ -7,10 +7,10 @@ class binarySearchTree: public searchTree {
 		binarySearchTree();
 		~binarySearchTree();
 		virtual void insert(dictEntry *in);
-		virtual void insert_h(dictEntry *in, searchTreeNode *root);
+		virtual void insert_h(dictEntry *in, searchTreeNode *current);
 		virtual void remove(string w);
 		virtual searchTreeNode* search(string w);
-		virtual searchTreeNode* search_h(string w, searchTreeNode *root);
+		virtual searchTreeNode* search_h(string w, searchTreeNode *current);
 		// virtual searchTreeNode* successor(searchTreeNode *n);
 		virtual void preOrder(string filename);
 		virtual void postOrder(string filename);
