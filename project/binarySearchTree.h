@@ -11,7 +11,7 @@ class binarySearchTree: public searchTree {
 		virtual void remove(string w);
 		virtual searchTreeNode* search(string w);
 		virtual searchTreeNode* search_h(string w, searchTreeNode *current);
-		// virtual searchTreeNode* successor(searchTreeNode *n);
+		virtual searchTreeNode* successor(searchTreeNode *toDelete);
 		virtual void preOrder(string filename);
 		virtual void postOrder(string filename);
 		virtual void inOrder(string filename);

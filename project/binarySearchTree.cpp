@@ -102,6 +102,7 @@ void binarySearchTree::remove(string w)
 // actually does the removing and restructuring of the tree
 // dictEntry with word == w
 {
+	string newWord, newDefinition;
 	searchTreeNode* toDelete = search(w);
 	if (toDelete != NULL)
 	{
@@ -135,8 +136,10 @@ void binarySearchTree::remove(string w)
 			}
 			else
 			{
-				// searchTreeNode* toDeleteSucc = toDelete->successor(toDelete);
-				// toDelete->definition = toDeleteSucc->definition;
+				searchTreeNode* toDeleteSucc = successor(toDelete);
+				newDefinition = toDeleteSucc->data->getDefinition();
+				cout << "successor: " << toDeleteSucc->data->getWord() << endl;
+				toDelete->data->updateDefinition(newDefinition);
 				if (toDelete == toDelete->parent->left)
 				{
 					toDelete->parent->left = toDelete->right;
@@ -144,11 +147,27 @@ void binarySearchTree::remove(string w)
 				}
 				else
 				{
-					toDelete->parent->right = toDelete->right;
+					toDelete->parent->right = toDelete->left;
 					delete toDelete;
 				}
 			}
 		}
+	}
+}
+
+searchTreeNode* binarySearchTree::successor(searchTreeNode *toDelete)
+// ensures that all child nodes are still in tree
+//		when removing a parent node with two children
+{
+	searchTreeNode* current;
+	if ((toDelete == NULL) or (toDelete->right == NULL))
+		return NULL;
+	else
+	{
+		current = toDelete->right;
+		while (current->left != NULL)
+			current = current->left;
+		return current;
 	}
 }
 

@@ -57,8 +57,7 @@ void dictionary::remove(string word)
 // calls searchTree remove() to remove dictEntry
 //		containing word param from chosen tree
 {
-	searchTree *tree;
-	tree->remove(word);
+	dict->remove(word);
 }
 
 void dictionary::readFile(string filename)
@@ -91,24 +90,21 @@ void dictionary::writeFilePreorder(string filename)
 // calls searchTree preOrder() file writing function
 //		on filename parameter
 {
-	searchTree *tree;
-	tree->preOrder(filename);
+	dict->preOrder(filename);
 }
 
 void dictionary::writeFileInorder(string filename)
 // calls searchTree inOrder() file writing function
 //		on filename parameter
 {
-	searchTree *tree;
-	tree->inOrder(filename);
+	dict->inOrder(filename);
 }
 
 void dictionary::writeFilePostorder(string filename)
 // calls searchTree postOrder() file writing function
 //		on filename parameter
 {
-	searchTree *tree;
-	tree->postOrder(filename);
+	dict->postOrder(filename);
 }
 
 string makeCap(string word)
@@ -165,6 +161,7 @@ int main()
 				case 4:
 					cout << "Enter word to remove: ";
 					cin >> removeWord;
+					removeWord = makeCap(removeWord);
 					dict.remove(removeWord);
 					break;
 				case 5:
@@ -230,6 +227,7 @@ int main()
 				case 4:
 					cout << "Enter word to remove: ";
 					cin >> removeWord;
+					removeWord = makeCap(removeWord);
 					dict.remove(removeWord);
 					break;
 				case 5:
