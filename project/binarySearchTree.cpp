@@ -23,9 +23,10 @@ void binarySearchTree::destroy_tree(searchTreeNode *leaf)
 {
 	if (leaf != NULL)
 	{
+		// cout << leaf->data->getWord() << endl;
 		destroy_tree(leaf->left);
 		destroy_tree(leaf->right);
-		delete(leaf);
+		delete leaf;
 	}
 }
 
@@ -75,12 +76,12 @@ searchTreeNode* binarySearchTree::search_h(string w, searchTreeNode *current)
 {
 	if (*(current->data) == w)
 	{
-		cout << w << " is the same as " << current->data->getWord() << endl;
+		// cout << w << " is the same as " << current->data->getWord() << endl;
 		return current;
 	}
 	else if (*(current->data) > w)
 	{
-		cout << w << " is before " << current->data->getWord() << endl;
+		// cout << w << " is before " << current->data->getWord() << endl;
 		if (current->left != NULL)
 			return search_h(w, current->left);
 		else
@@ -88,7 +89,7 @@ searchTreeNode* binarySearchTree::search_h(string w, searchTreeNode *current)
 	}
 	else if (*(current->data) < w)
 	{
-		cout << w << " is after " << current->data->getWord() << endl;
+		// cout << w << " is after " << current->data->getWord() << endl;
 		if (current->right != NULL)
 			return search_h(w, current->right);
 		else
@@ -138,7 +139,7 @@ void binarySearchTree::remove(string w)
 			{
 				searchTreeNode* toDeleteSucc = successor(toDelete);
 				newDefinition = toDeleteSucc->data->getDefinition();
-				cout << "successor: " << toDeleteSucc->data->getWord() << endl;
+				// cout << "successor: " << toDeleteSucc->data->getWord() << endl;
 				toDelete->data->updateDefinition(newDefinition);
 				if (toDelete == toDelete->parent->left)
 				{
@@ -240,7 +241,7 @@ void binarySearchTree::inorder_h(searchTreeNode *n)
 	{
 		current = Q.front();
 		Q.pop();
-		cout << getWord(current) << endl;
+		// cout << getWord(current) << endl;
 		visit(current);
 		if (current->left != NULL)
 			Q.push(current->left);
@@ -258,7 +259,7 @@ void binarySearchTree::visit(searchTreeNode *n)
 	string word, definition;
 	word = getWord(n);
 	definition = getDefinition(n);
-	fout << "[" << word << "]: [" << definition << "]\n";
+	fout << word << ": " << definition << "\n";
 }
 
 string binarySearchTree::getWord(searchTreeNode *n)

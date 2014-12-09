@@ -16,9 +16,10 @@ void RBSearchTree::destroy_tree(RBsearchTreeNode *leaf)
 {
 	if (leaf != NULL)
 	{
+		// cout << leaf->data->getWord() << endl;
 		destroy_tree(leaf->left);
 		destroy_tree(leaf->right);
-		delete(leaf);
+		delete leaf;;
 	}
 }
 
@@ -67,12 +68,12 @@ RBsearchTreeNode* RBSearchTree::search_h(string w, RBsearchTreeNode *current)
 {
 	if (*(current->data) == w)
 	{
-		cout << w << " is the same as " << current->data->getWord() << endl;
+		// cout << w << " is the same as " << current->data->getWord() << endl;
 		return current;
 	}
 	else if (*(current->data) > w)
 	{
-		cout << w << " is before " << current->data->getWord() << endl;
+		// cout << w << " is before " << current->data->getWord() << endl;
 		if (current->left != NULL)
 			return search_h(w, current->left);
 		else
@@ -80,7 +81,7 @@ RBsearchTreeNode* RBSearchTree::search_h(string w, RBsearchTreeNode *current)
 	}
 	else if (*(current->data) < w)
 	{
-		cout << w << " is after " << current->data->getWord() << endl;
+		// cout << w << " is after " << current->data->getWord() << endl;
 		if (current->right != NULL)
 			return search_h(w, current->right);
 		else
@@ -130,7 +131,7 @@ void RBSearchTree::remove(string w)
 			{
 				RBsearchTreeNode* toDeleteSucc = successor(toDelete);
 				newDefinition = toDeleteSucc->data->getDefinition();
-				cout << "successor: " << toDeleteSucc->data->getWord() << endl;
+				// cout << "successor: " << toDeleteSucc->data->getWord() << endl;
 				toDelete->data->updateDefinition(newDefinition);
 				if (toDelete == toDelete->parent->left)
 				{
@@ -249,7 +250,7 @@ void RBSearchTree::visit(RBsearchTreeNode *n)
 	string word, definition;
 	word = getWord(n);
 	definition = getDefinition(n);
-	fout << "[" << word << "]: [" << definition << "]\n";
+	fout << word << ": " << definition << "\n";
 }
 
 string RBSearchTree::getWord(RBsearchTreeNode *n)

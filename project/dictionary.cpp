@@ -23,7 +23,7 @@ dictionary::~dictionary()
 // destructor for dictionary
 // calls destructor on the tree then deletes itself
 {
-	delete(this);
+	// cout << "deleted dict\n";
 }
 
 void dictionary::search(string word)
@@ -138,8 +138,8 @@ int main()
 				case 1:
 					cout << "Enter file name: ";
 					cin >> filename;
-					dict.readFile("testEntries.txt");
-					// dict.readFile(filename);
+					// dict.readFile("testEntries.txt");
+					dict.readFile(filename);
 					break;
 				case 2:
 					// in brackets so other tree doesn't cross define dictEntry entry
@@ -184,8 +184,8 @@ int main()
 					}
 					break;
 				case 0:
-					tree.~searchTree();
-					dict.~dictionary();
+					cout << "successfully deleted everything\n";
+					break;
 				default:
 					cout << "Invalid input.";
 			}
@@ -204,8 +204,8 @@ int main()
 				case 1:
 					cout << "Enter file name: ";
 					cin >> filename;
-					dict.readFile("testEntries.txt");
-					// dict.readFile(filename);
+					// dict.readFile("testEntries.txt");
+					dict.readFile(filename);
 					break;
 				case 2:
 					// in brackets so other tree doesn't cross define dictEntry entry
@@ -250,8 +250,8 @@ int main()
 					}
 					break;
 				case 0:
-					tree.~searchTree();
-					dict.~dictionary();
+					cout << "successfully deleted everything\n";
+					break;
 				default:
 					cout << "Invalid input.\n";
 			}

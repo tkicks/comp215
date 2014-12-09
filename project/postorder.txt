@@ -1,0 +1,16 @@
+SHOES: article of clothing worn on feet
+SHIRT: article of clothing worn on torso
+ROBOT: beep boop
+PIG: oink
+PANTS: article of clothing worn on legs
+MONKEY: ooh ooh ah ah
+LION: roar
+HORSE: neigh
+HAT: article of clothing worn on head
+FISH: glub glub
+DOLPHIN: eeek
+DOG: woof
+CROW: caw
+COW: moo
+CAT: meow
+BIRD: tweet
