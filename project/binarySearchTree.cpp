@@ -180,9 +180,7 @@ void binarySearchTree::preOrder(string filename)
 // protected b/c don't want people messing w/ order
 // 		or else new tree will be messed up
 {
-	char* c_file;
-	strcpy(c_file, filename.c_str());
-	fout.open(c_file, ofstream::out);
+	fout.open(filename.c_str(), ofstream::out);
 	preorder_h(root);
 	fout.close();
 }
@@ -203,9 +201,7 @@ void binarySearchTree::preorder_h(searchTreeNode *n)
 void binarySearchTree::postOrder(string filename)
 // calls protected helper function to visit nodes
 {
-	char* c_file;
-	strcpy(c_file, filename.c_str());
-	fout.open(c_file, ofstream::out);
+	fout.open(filename.c_str(), ofstream::out);
 	postorder_h(root);
 	fout.close();
 }
@@ -226,9 +222,7 @@ void binarySearchTree::postorder_h(searchTreeNode *n)
 void binarySearchTree::inOrder(string filename)
 // calls protected helper function to visit nodes
 {
-	char* c_file;
-	strcpy(c_file, filename.c_str());
-	fout.open(c_file, ofstream::out);
+	fout.open(filename.c_str(), ofstream::out);
 	inorder_h(root);
 	fout.close();
 }
@@ -245,7 +239,9 @@ void binarySearchTree::inorder_h(searchTreeNode *n)
 	while (!Q.empty())
 	{
 		current = Q.front();
-		visit(n);
+		Q.pop();
+		cout << getWord(current) << endl;
+		visit(current);
 		if (current->left != NULL)
 			Q.push(current->left);
 		if (current->right != NULL)

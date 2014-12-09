@@ -172,9 +172,7 @@ void RBSearchTree::preOrder(string filename)
 // protected b/c don't want people messing w/ order
 // 		or else new tree will be messed up
 {
-	char* c_file;
-	strcpy(c_file, filename.c_str());
-	fout.open(c_file, ofstream::out);
+	fout.open(filename.c_str(), ofstream::out);
 	preorder_h(root);
 	fout.close();
 }
@@ -195,9 +193,7 @@ void RBSearchTree::preorder_h(RBsearchTreeNode *n)
 void RBSearchTree::postOrder(string filename)
 // calls protected helper function to visit nodes
 {
-	char* c_file;
-	strcpy(c_file, filename.c_str());
-	fout.open(c_file, ofstream::out);
+	fout.open(filename.c_str(), ofstream::out);
 	postorder_h(root);
 	fout.close();
 }
@@ -218,9 +214,7 @@ void RBSearchTree::postorder_h(RBsearchTreeNode *n)
 void RBSearchTree::inOrder(string filename)
 // calls protected helper function to visit nodes
 {
-	char* c_file;
-	strcpy(c_file, filename.c_str());
-	fout.open(c_file, ofstream::out);
+	fout.open(filename.c_str(), ofstream::out);
 	inorder_h(root);
 	fout.close();
 }
@@ -237,7 +231,8 @@ void RBSearchTree::inorder_h(RBsearchTreeNode *n)
 	while (!Q.empty())
 	{
 		current = Q.front();
-		visit(n);
+		Q.pop();
+		visit(current);
 		if (current->left != NULL)
 			Q.push(current->left);
 		if (current->right != NULL)
