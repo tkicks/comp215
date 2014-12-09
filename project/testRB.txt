@@ -58,5 +58,7 @@ ROBOTS: more than one robot: 0
 
 ROBOTTERS: more than one who robots: 0
 
+ROCKS: more than one rock: 0
+
 SEAT: where one sits: 0
 

@@ -218,7 +218,13 @@ void RBSearchTree::remove(string w)
 	else
 	{
 		y = successor(toDelete);
-		RBsearchTreeNode* z(y);
+		newWord = y->data->getWord();
+		newDefinition = y->data->getDefinition();
+		toDelete->data->updateWord(newWord);
+		toDelete->data->updateDefinition(newDefinition);
+		cout << toDelete->data->getWord() << endl;
+		cout << toDelete->data->getDefinition() << endl;
+		// works to here at least
 	}
 	if (y->left != NULL)
 	{
