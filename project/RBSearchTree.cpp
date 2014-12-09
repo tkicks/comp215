@@ -222,8 +222,8 @@ void RBSearchTree::remove(string w)
 		newDefinition = y->data->getDefinition();
 		toDelete->data->updateWord(newWord);
 		toDelete->data->updateDefinition(newDefinition);
-		cout << toDelete->data->getWord() << endl;
-		cout << toDelete->data->getDefinition() << endl;
+		// cout << toDelete->data->getWord() << endl;
+		// cout << toDelete->data->getDefinition() << endl;
 		// works to here at least
 	}
 	if (y->left != NULL)
