@@ -144,13 +144,13 @@ void binarySearchTree::remove(string w)
 				if (toDelete == toDelete->parent->left)
 				{
 					toDeleteSucc->left = toDelete->left;
-					toDeleteSucc->right = toDelete->right;
+					toDeleteSucc->parent = toDelete->parent;
 					toDelete->parent->left = toDeleteSucc;
 					delete toDelete;
 				}
 				else
 				{
-					toDeleteSucc->left = toDelete->left;
+					toDeleteSucc->parent = toDelete->parent;
 					toDeleteSucc->right = toDelete->right;
 					toDelete->parent->right = toDeleteSucc;
 					delete toDelete;
