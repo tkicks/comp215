@@ -1,0 +1,64 @@
+PANTS: article of clothing worn on legs: 1
+
+DOG: woof: 0
+
+ROBOT: beep boop: 0
+
+CAT: meow: 1
+
+HAT: article of clothing worn on head: 1
+
+PIG: oink: 1
+
+SHIRT: article of clothing worn on torso: 1
+
+BIRD: tweet: 1
+
+COW: moo: 0
+
+DOLPHIN: eeek: 1
+
+LION: roar: 1
+
+PET: animal taken care of by human(s): 0
+
+RESCUE: save somebody: 1
+
+ROCK: stone: 0
+
+SHOES: article of clothing worn on feet: 1
+
+CORN: food: 1
+
+CROW: caw: 1
+
+FISH: glub glub: 0
+
+HORSE: neigh: 0
+
+MONKEY: ooh ooh ah ah: 0
+
+PEA: food: 1
+
+PETTY: insignificant: 1
+
+PLUG: fill in: 0
+
+REST: relax: 0
+
+ROBOTTER: one who robots: 1
+
+ROCKY: stoney: 1
+
+CORNS: more than one corn: 0
+
+PEAS: more than one pea: 0
+
+ROBOTS: more than one robot: 0
+
+ROBOTTERS: more than one who robots: 0
+
+ROCKS: more than one rock: 0
+
+SEAT: where one sits: 0
+

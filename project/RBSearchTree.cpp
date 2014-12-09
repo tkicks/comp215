@@ -37,6 +37,28 @@ void RBSearchTree::insert(dictEntry *in)
 		insert_fixup(z);
 }
 
+RBsearchTreeNode* RBSearchTree::insert_h(dictEntry *in, RBsearchTreeNode *current)
+// inserts a dictEntry into the binary search tree if
+// there's already a root entry
+{
+	if ((*(in) < current->data->getWord()) and (current->left != NULL))
+		return insert_h(in, current->left);
+	else if (*(in) < current->data->getWord())
+	{
+		current->left = new RBsearchTreeNode(in, current);
+		return (current->left);
+	}
+	else if ((*(in) > current->data->getWord()) and (current->right != NULL))
+		return insert_h(in, current->right);
+	else if (*(in) > current->data->getWord())
+	{
+		current->right = new RBsearchTreeNode(in, current);
+		return current->right;
+	}
+	else
+		return NULL;
+}
+
 void RBSearchTree::insert_fixup(RBsearchTreeNode *node)
 // fixes the color of the node inserted
 // node = node currently focused on fixing
@@ -49,19 +71,19 @@ void RBSearchTree::insert_fixup(RBsearchTreeNode *node)
 	else
 	{
 		RBsearchTreeNode *p = node->parent;
-		RBsearchTreeNode *g = parent->parent;
+		RBsearchTreeNode *g = p->parent;
 		RBsearchTreeNode *u = Uncle(node);
 		if (Color(u) == BLACK)
 		{
 			if ((node == p->right) and (p == g->left))
 			{
 				rotate_left(p);
-				swap(p, n);
+				swap(p, node);
 			}
 			if ((node == p->left) and (p == g->right))
 			{
 				rotate_right(p);
-				swap(p, n);
+				swap(p, node);
 			}
 			p->color = BLACK;
 			g->color = RED;
@@ -99,7 +121,7 @@ RBsearchTreeNode* RBSearchTree::Uncle(RBsearchTreeNode *node)
 	return NULL;
 }
 
-RBcolor RBsearchTree::Color(RBsearchTreeNode *node)
+RBcolor RBSearchTree::Color(RBsearchTreeNode *node)
 // finds the color of the uncle node to determine
 //		which rotate to do
 {
@@ -109,7 +131,7 @@ RBcolor RBsearchTree::Color(RBsearchTreeNode *node)
 		return (node->color);
 }
 
-void RBsearchTree::rotate_left(RBsearchTreeNode *node)
+void RBSearchTree::rotate_left(RBsearchTreeNode *node)
 // rotates the current node left
 {
 	RBsearchTreeNode *y = node->right;
@@ -127,7 +149,7 @@ void RBsearchTree::rotate_left(RBsearchTreeNode *node)
 	node->parent = y;
 }
 
-void RBsearchTree::rotate_right(RBsearchTreeNode *node)
+void RBSearchTree::rotate_right(RBsearchTreeNode *node)
 // rotates the current node right
 {
 	RBsearchTreeNode *y = node->left;
@@ -143,28 +165,6 @@ void RBsearchTree::rotate_right(RBsearchTreeNode *node)
 		node->parent->left = y;
 	y->right = node;
 	node->parent = y;
-}
-
-RBsearchTreeNode* RBSearchTree::insert_h(dictEntry *in, RBsearchTreeNode *current)
-// inserts a dictEntry into the binary search tree if
-// there's already a root entry
-{
-	if (*(in) == current->data->getWord())
-		return;
-	else if (*(in) < current->data->getWord())
-	{
-		if (current->left == NULL)
-			current->left = new RBsearchTreeNode(in, current);
-		else
-			insert_h(in, current->left);
-	}
-	else
-	{
-		if (current->right == NULL)
-			current->right = new RBsearchTreeNode(in, current);
-		else
-			insert_h(in, current->right);
-	}
 }
 
 RBsearchTreeNode* RBSearchTree::search(string w)
@@ -244,7 +244,6 @@ void RBSearchTree::remove(string w)
 			{
 				RBsearchTreeNode* toDeleteSucc = successor(toDelete);
 				newDefinition = toDeleteSucc->data->getDefinition();
-				// cout << "successor: " << toDeleteSucc->data->getWord() << endl;
 				toDelete->data->updateDefinition(newDefinition);
 				if (toDelete == toDelete->parent->left)
 				{
@@ -359,11 +358,12 @@ void RBSearchTree::visit(RBsearchTreeNode *n)
 // gets the word and definition and writes it to the file
 // file fout is part of class and declared in function calling
 //		visit
+// in save file: 0 = RED 1 = BLACK
 {
 	string word, definition;
 	word = getWord(n);
 	definition = getDefinition(n);
-	fout << word << ": " << definition << "\n\n";
+	fout << word << ": " << definition << ": " << n->color << "\n\n";
 }
 
 string RBSearchTree::getWord(RBsearchTreeNode *n)
