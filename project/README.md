@@ -4,15 +4,23 @@ Dictionary
 `By: Tyler Kickham`  
   
 #FINISHED  
-+ dictionary.cpp  
-	+ add()  
++ binarySearchTree  
+	+ read  
+	+ add  
+	+ search  
+	+ remove  
+	+ save  
+	+ close  
++ RBSearchTree  
+	+ ~~read~~  
+	+ ~~add~~  
+	+ ~~search~~  
+	+ ~~remove~~  
+	+ ~~save~~  
+	+ ~~close~~ 
 
 #TODO  
-+ binarySearchTree.h/.cpp  
-	+ successor  
 + RBSearchTree  
-	+ successor  
-+ dictionary.cpp  
-	+ search() seg faults after working correctly  
+	+ RB functionality  
 
 ##For now it compiles, so working so far.

@@ -250,7 +250,7 @@ void RBSearchTree::visit(RBsearchTreeNode *n)
 	string word, definition;
 	word = getWord(n);
 	definition = getDefinition(n);
-	fout << word << ": " << definition << "\n";
+	fout << word << ": " << definition << "\n\n";
 }
 
 string RBSearchTree::getWord(RBsearchTreeNode *n)

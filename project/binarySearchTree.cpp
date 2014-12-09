@@ -140,8 +140,9 @@ void binarySearchTree::remove(string w)
 				searchTreeNode* toDeleteSucc = successor(toDelete);
 				newDefinition = toDeleteSucc->data->getDefinition();
 				newWord = toDeleteSucc->data->getWord();
-				// cout << "successor: " << toDeleteSucc->data->getWord() << endl;
 				toDelete->data->updateDefinition(newDefinition);
+
+				// update word inside so toDelete check works out correctly
 				if (toDelete == toDelete->parent->left)
 				{
 					toDelete->data->updateWord(newWord);
@@ -156,6 +157,7 @@ void binarySearchTree::remove(string w)
 						toDeleteSucc->parent->left = toDeleteSucc->right;
 					delete toDeleteSucc;
 				}
+
 			}
 		}
 	}
@@ -260,7 +262,7 @@ void binarySearchTree::visit(searchTreeNode *n)
 	string word, definition;
 	word = getWord(n);
 	definition = getDefinition(n);
-	fout << word << ": " << definition << "\n";
+	fout << word << ": " << definition << "\n\n";
 }
 
 string binarySearchTree::getWord(searchTreeNode *n)

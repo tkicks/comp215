@@ -124,6 +124,7 @@ int main()
 	string filename, newWord, newDefinition, wordToGet, removeWord;
 	cout << "Binary Tree [1] or Red-Black [2] Tree? ";
 	cin >> whichTree;
+
 	if (whichTree == 1)
 	{
 		binarySearchTree tree;
@@ -188,8 +189,8 @@ int main()
 					cout << "Invalid input.";
 			}
 		} while (whichOption != 0);
-		// dict.readFile("testEntries.txt");
 	}
+
 	else if (whichTree == 2)
 	{
 		RBSearchTree tree;
@@ -255,9 +256,11 @@ int main()
 			}
 		} while (whichOption != 0);
 	}
+
 	else
 	{
 		cout << "You broke me with invalid input.\nClosing dictionary.\n";
 		return -1;
 	}
+
 }
