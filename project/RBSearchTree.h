@@ -16,6 +16,8 @@ class RBSearchTree: public searchTree {
 		virtual void rotate_left(RBsearchTreeNode *node);
 		virtual void rotate_right(RBsearchTreeNode *node);
 		virtual void remove(string w);
+		virtual void remove_fixup(RBsearchTreeNode *node);
+		virtual RBsearchTreeNode* Sibling(RBsearchTreeNode *node);
 		virtual RBsearchTreeNode* search(string w);
 		virtual RBsearchTreeNode* search_h(string w, RBsearchTreeNode *root);
 		virtual RBsearchTreeNode* successor(RBsearchTreeNode *n);

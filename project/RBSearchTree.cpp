@@ -210,58 +210,109 @@ void RBSearchTree::remove(string w)
 {
 	string newWord, newDefinition;
 	RBsearchTreeNode* toDelete = search(w);
-	if (toDelete != NULL)
+	RBsearchTreeNode* y;
+	if (toDelete == NULL)
+		return;
+	if ((toDelete->left == NULL) or (toDelete->right == NULL))
+		y = toDelete;
+	else
 	{
-		if (toDelete->parent != NULL)
-		{
-			if (toDelete->left == NULL)
-			{
-				if (toDelete == toDelete->parent->left)
-				{
-					toDelete->parent->left = toDelete->right;
-					delete toDelete;
-				}
-				else
-				{
-					toDelete->parent->right = toDelete->right;
-					delete toDelete;
-				}
-			}
-			else if (toDelete->right == NULL)
-			{
-				if (toDelete == toDelete->parent->left)
-				{
-					toDelete->parent->left = toDelete->left;
-					delete toDelete;
-				}
-				else
-				{
-					toDelete->parent->right = toDelete->left;
-					delete toDelete;
-				}
-			}
-			else
-			{
-				RBsearchTreeNode* toDeleteSucc = successor(toDelete);
-				newDefinition = toDeleteSucc->data->getDefinition();
-				toDelete->data->updateDefinition(newDefinition);
-				if (toDelete == toDelete->parent->left)
-				{
-					toDeleteSucc->left = toDelete->left;
-					toDeleteSucc->right = toDelete->right;
-					toDelete->parent->left = toDeleteSucc;
-					delete toDelete;
-				}
-				else
-				{
-					toDeleteSucc->left = toDelete->left;
-					toDeleteSucc->right = toDelete->right;
-					toDelete->parent->right = toDeleteSucc;
-					delete toDelete;
-				}
-			}
-		}
+		y = successor(toDelete);
+		RBsearchTreeNode* z(y);
 	}
+	if (y->left != NULL)
+	{
+		newWord = getWord(y->left);
+		newDefinition = getDefinition(y->left);
+		y->data->updateWord(newWord);
+		y->data->updateDefinition(newDefinition);
+		delete(y->left);
+		y->left = NULL;
+		return;
+	}
+	if (y->right != NULL)
+	{
+		newWord = getWord(y->right);
+		newDefinition = getDefinition(y->right);
+		y->data->updateWord(newWord);
+		y->data->updateDefinition(newDefinition);
+		delete(y->right);
+		y->right = NULL;
+		return;
+	}
+	if (y->color == BLACK)
+		remove_fixup(y);
+	if (y->parent == NULL)
+		root = NULL;
+	else if (y == y->parent->left)
+		y->parent->left = NULL;
+	else
+		y->parent->right = NULL;
+	delete(y);
+}
+
+void RBSearchTree::remove_fixup(RBsearchTreeNode *node)
+// fixes the tree after removing a node
+{
+	if (node->parent == NULL)
+		return;
+	RBsearchTreeNode* s = Sibling(node);
+	if (s->color == RED)
+	{
+		node->parent->color = RED;
+		s->color = BLACK;
+		if (node == node->parent->left)
+			rotate_left(node->parent);
+		else
+			rotate_right(node->parent);
+		s = Sibling(node);
+	}
+	if ((node == node->parent->left) and (Color(s->right) == BLACK) and (Color(s->left) == RED))
+	{
+		s->color = RED;
+		s->left->color = BLACK;
+		rotate_right(s);
+	}
+	else if ((node == node->parent->right) and (Color(s->left) == BLACK) and (Color(s->right) == RED))
+	{
+		s->color = RED;
+		s->right->color = BLACK;
+		rotate_left(s);
+	}
+	if ((node == node->parent->left) and (Color(s->right) == RED))
+	{
+		s->color = node->parent->color;
+		node->parent->color = BLACK;
+		s->right->color = BLACK;
+		rotate_left(node->parent);
+		return;
+	}
+	else if ((node == node->parent->right) and (Color(s->left) == RED))
+	{
+		s->color = node->parent->color;
+		node->parent->color = BLACK;
+		s->right->color = BLACK;
+		rotate_right(node->parent);
+		return;
+	}
+	else
+	{
+		s->color = RED;
+		remove_fixup(s->parent);
+	}
+}
+
+RBsearchTreeNode* RBSearchTree::Sibling(RBsearchTreeNode *node)
+// find the sibling node for the current node
+{
+	if (node == NULL)
+		return NULL;
+	else if (node->parent == NULL)
+		return NULL;
+	else if (node == node->parent->left)
+		return (node->parent->right);
+	else
+		return (node->parent->left);
 }
 
 RBsearchTreeNode* RBSearchTree::successor(RBsearchTreeNode *toDelete)
