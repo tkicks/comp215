@@ -34,12 +34,10 @@ void dictionary::search(string word)
 	string theWord, definition;
 	word = makeCap(word);
 	treeNode *entry = dict->search(word);
-	cout << "made treeNode\n";
 	if (entry == NULL)
 		cout << "The word " << word << " was not found in the dictionary.\n";
 	else
 	{
-		cout << "entry not null\n";
 		theWord = entry->data->getWord();
 		definition = entry->data->getDefinition();
 		cout << word << ": " << definition << endl;
@@ -77,8 +75,8 @@ void dictionary::readFile(string filename)
 			endWord = line.find(':', 0);
 			word = line.substr(0, endWord);
 			definition = line.substr(word.length()+ 2);
-			cout << word << endl;
-			cout << definition << endl;
+			// cout << word << endl;
+			// cout << definition << endl;
 
 			entry = new dictEntry(word, definition);
 			add(entry);

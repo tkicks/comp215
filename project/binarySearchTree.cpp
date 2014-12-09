@@ -139,21 +139,22 @@ void binarySearchTree::remove(string w)
 			{
 				searchTreeNode* toDeleteSucc = successor(toDelete);
 				newDefinition = toDeleteSucc->data->getDefinition();
+				newWord = toDeleteSucc->data->getWord();
 				// cout << "successor: " << toDeleteSucc->data->getWord() << endl;
 				toDelete->data->updateDefinition(newDefinition);
 				if (toDelete == toDelete->parent->left)
 				{
-					toDeleteSucc->left = toDelete->left;
-					toDeleteSucc->parent = toDelete->parent;
-					toDelete->parent->left = toDeleteSucc;
-					delete toDelete;
+					toDelete->data->updateWord(newWord);
+					if (toDeleteSucc->right != NULL)
+						toDeleteSucc->parent->left = toDeleteSucc->right;
+					delete toDeleteSucc;
 				}
 				else
 				{
-					toDeleteSucc->parent = toDelete->parent;
-					toDeleteSucc->right = toDelete->right;
-					toDelete->parent->right = toDeleteSucc;
-					delete toDelete;
+					toDelete->data->updateWord(newWord);
+					if (toDeleteSucc->right != NULL)
+						toDeleteSucc->parent->left = toDeleteSucc->right;
+					delete toDeleteSucc;
 				}
 			}
 		}

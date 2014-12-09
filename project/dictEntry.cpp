@@ -22,6 +22,12 @@ string dictEntry::getDefinition()
 	return this->definition;
 }
 
+void dictEntry::updateWord(string word)
+// update word of a string
+{
+	this->word = word;
+}
+
 void dictEntry::updateDefinition(string def)
 // update definition of a string
 {
