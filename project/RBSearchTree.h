@@ -13,7 +13,7 @@ class RBSearchTree: public searchTree {
 		virtual void remove(string w);
 		virtual RBsearchTreeNode* search(string w);
 		virtual RBsearchTreeNode* search_h(string w, RBsearchTreeNode *root);
-		// virtual RBsearchTreeNode* successor(RBsearchTreeNode *n);
+		virtual RBsearchTreeNode* successor(RBsearchTreeNode *n);
 		virtual void preOrder(string filename);
 		virtual void postOrder(string filename);
 		virtual void inOrder(string filename);
