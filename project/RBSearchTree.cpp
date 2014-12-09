@@ -19,7 +19,7 @@ void RBSearchTree::destroy_tree(RBsearchTreeNode *leaf)
 		// cout << leaf->data->getWord() << endl;
 		destroy_tree(leaf->left);
 		destroy_tree(leaf->right);
-		delete leaf;;
+		delete leaf;
 	}
 }
 
