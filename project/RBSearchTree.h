@@ -9,7 +9,12 @@ class RBSearchTree: public searchTree {
 		RBSearchTree();
 		~RBSearchTree();
 		virtual void insert(dictEntry *in);
-		virtual void insert_h(dictEntry *in, RBsearchTreeNode *root);
+		virtual RBsearchTreeNode* insert_h(dictEntry *in, RBsearchTreeNode *root);
+		virtual void insert_fixup(RBsearchTreeNode *node);
+		virtual RBsearchTreeNode* Uncle(RBsearchTreeNode *node);
+		virtual RBcolor Color(RBsearchTreeNode *node);
+		virtual void rotate_left(RBsearchTreeNode *node);
+		virtual void rotate_right(RBsearchTreeNode *node);
 		virtual void remove(string w);
 		virtual RBsearchTreeNode* search(string w);
 		virtual RBsearchTreeNode* search_h(string w, RBsearchTreeNode *root);
