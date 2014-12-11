@@ -73,13 +73,18 @@ void dictionary::readFile(string filename)
 		if (line.length() > 0)
 		{
 			endWord = line.find(':', 0);
-			word = line.substr(0, endWord);
-			definition = line.substr(word.length()+ 2);
-			// cout << word << endl;
-			// cout << definition << endl;
+			if (endWord)
+			{
+				word = line.substr(0, endWord);
+				definition = line.substr(word.length()+ 2);
+				// cout << word << endl;
+				// cout << definition << endl;
 
-			entry = new dictEntry(word, definition);
-			add(entry);
+				entry = new dictEntry(word, definition);
+				add(entry);
+			}
+			else
+				continue;
 		}
 	}
 }
